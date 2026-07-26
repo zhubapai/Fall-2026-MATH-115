@@ -1,0 +1,45 @@
+% Setup the design
+\usepackage{pictex}
+\usetheme{Frankfurt}
+\useoutertheme[subsection=false, footline=authortitle]{miniframes}
+\setbeamertemplate{headline}{} % no headline with navigation
+\setbeamertemplate{navigation symbols}{} % prevent navigation symbols from showing up
+% Fix the colors
+\definecolor{color 1}{RGB}{51,51,178}
+\definecolor{color 2}{RGB}{71,71,186}
+\definecolor{color 3}{RGB}{173,173,224}
+\setbeamercolor{titlelike}{fg=color 1,bg={}}
+\setbeamercolor{title in head/foot}{fg=white,bg=color 2}
+\setbeamercolor{section in head/foot}{fg=white,bg=color 2}
+\setbeamercolor{frametitle}{fg=black,bg=color 3}
+% Custom example environments for automatic numbering
+\newcounter{example}
+\newenvironment{exampleN}{%
+   \stepcounter{example}
+   \begin{exampleblock}{Example \theexample}
+}{%
+   \end{exampleblock}
+}
+\newenvironment{exampleN*}{%
+   \begin{exampleblock}{Example \theexample\ (continued)}
+}{%
+   \end{exampleblock}
+}
+\newcounter{savedenumi}
+\let\oldenumerate\enumerate
+\let\oldendenumerate\endenumerate
+\renewenvironment{enumerate}{%
+   \oldenumerate%
+}{%
+   \setcounter{savedenumi}{\value{enumi}}%
+   \oldendenumerate%
+}
+\newenvironment{enumerate*}{%
+   \oldenumerate%
+   \setcounter{enumi}{\value{savedenumi}}%
+}{%
+   \setcounter{savedenumi}{\value{enumi}}%
+   \oldendenumerate%
+}
+% Only actually needed when the headline is used
+\AtBeginSection[]{\subsection{}}

@@ -1,0 +1,82 @@
+\documentclass[aspectratio=1610]{beamer}
+\usepackage{slide_design}
+\usepackage{author_macros}
+\title[MATH 115]{MATH 115}
+% \author{Pai Song}
+\date{ }
+\subtitle{Lecture Title Here}
+
+% add watermark
+\usepackage{tikz}
+\usebackgroundtemplate{
+\tikz\node[opacity=0.1, rotate = 0] {\includegraphics[height=\paperheight,width=\paperwidth]{figures/GSC.png}};}
+
+% add new packages
+\usepackage{enumitem} % enumerate
+\usepackage{subfig}
+\usepackage{xcolor}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathptmx}
+\usepackage{mathtools}
+\usepackage{caption}
+\usepackage{graphicx,comment}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{rotating}
+\usepackage{multicol,lipsum}
+\usepackage{hyperref}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usepackage{bm}
+\usepackage{chngcntr}
+
+\setbeamertemplate{caption}[numbered]
+
+\usepackage{enumitem}
+\setitemize{label=\usebeamerfont*{itemize item}%
+    \usebeamercolor[fg]{itemize item}
+    \usebeamertemplate{itemize item}}
+
+% add page number
+\setbeamerfont{page number in head/foot}{size=\small}
+\setbeamertemplate{footline}[frame number]
+
+\begin{document}
+
+\begin{frame}\titlepage\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Section Title}
+\begin{itemize}
+    \item First point.
+    \item Second point.
+    \item Third point.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Definition}
+    \begin{block}{}
+        State the definition here.
+    \end{block}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[t]{Worked Example}
+\begin{exampleN}
+    State the example problem here.
+\end{exampleN}
+\end{frame}
+
+\begin{frame}[t]{Worked Example}
+\begin{exampleN*}
+    Continue the solution here.
+\end{exampleN*}
+\end{frame}
+
+\end{document}
