@@ -1,0 +1,380 @@
+\documentclass[12pt]{article}
+
+\usepackage{fontspec}
+\newfontfamily\handwriting{a-casual-handwritten-pen}[Path=../assets/fonts/,Extension=.ttf,Scale=1.5]
+\newfontfamily\comic{Comic Neue}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\usepackage{titlesec}
+\usepackage{multicol}
+\usepackage{environ}
+
+\usetikzlibrary{fit, positioning, arrows.meta}
+
+% --- Custom Colors ---
+\definecolor{primaryblue}{RGB}{42, 111, 151}
+\definecolor{exbg}{RGB}{255, 240, 245}
+\definecolor{rulebg}{RGB}{232, 245, 233}
+\definecolor{highlight}{RGB}{255, 243, 176}
+\definecolor{pinkanno}{RGB}{255, 105, 180}
+\definecolor{purpleanno}{RGB}{147, 112, 219}
+\definecolor{solutionbg}{RGB}{245, 245, 255}
+
+% --- Header Styling ---
+\titleformat{\section}{\color{primaryblue}\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\color{primaryblue}\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+% --- Friendly Boxes ---
+% --- Auto-numbered Example Box ---
+\newcounter{examplenum}
+
+\newtcolorbox{friendlyexbox}[1]{
+    colback=exbg,
+    colframe=pinkanno!50,
+    arc=5pt,
+    title=\textbf{#1},
+    coltitle=black,
+    attach title to upper,
+    after title={:\quad}
+}
+
+\newenvironment{friendlyex}{%
+    \refstepcounter{examplenum}%
+    \begin{friendlyexbox}{Example \theexamplenum}%
+}{%
+    \end{friendlyexbox}%
+}
+
+\newtcolorbox{friendlyrule}[1]{
+    colback=rulebg,
+    colframe=primaryblue!30,
+    arc=5pt,
+    fonttitle=\bfseries,
+    title={#1},
+    coltitle=primaryblue
+}
+
+\newcommand{\funhl}[1]{\sethlcolor{highlight}\hl{#1}}
+
+% --- Show/Hide Solutions ---
+\newif\ifshowsolutions
+
+% Uncomment the next line to show solutions.
+\showsolutionstrue
+
+\newcommand{\solutionblank}{\vspace{25ex}}
+
+\NewEnviron{solutionbox}{
+\ifshowsolutions
+\begin{tcolorbox}[
+    colback=solutionbg,
+    colframe=purpleanno!45,
+    arc=5pt,
+    title={Solution},
+    coltitle=primaryblue,
+    fonttitle=\bfseries
+]
+\BODY
+\end{tcolorbox}
+\else
+\solutionblank
+\fi
+}
+
+\begin{document}
+\handwriting
+
+\begin{center}
+    \Large\textbf{\color{primaryblue}Module 2 Lesson 2\\Quadratic Equations} \\
+    \vspace{0.2cm}
+    \hrule
+\end{center}
+
+\section*{Objectives}
+
+\begin{friendlyrule}{In this lesson, we will learn how to}
+\begin{itemize}
+    \item solve quadratic equations using the zero product property;
+    \item solve quadratic equations using the square root property;
+    \item solve quadratic equations by completing the square;
+    \item solve quadratic equations using the quadratic formula;
+    \item use the discriminant to determine the number and type of solutions.
+\end{itemize}
+\end{friendlyrule}
+
+A \funhl{quadratic equation} in the variable $x$ is an equation of the form
+
+\[
+ax^2+bx+c=0,
+\]
+
+where $a$, $b$, and $c$ represent real numbers and $a\neq 0$.
+
+In this lesson, we study several ways to solve quadratic equations, which is also referred to as finding the \funhl{zeros}. The solutions, or zeros, of a quadratic equation represent the points where the graph of the corresponding quadratic function crosses the $x$-axis.
+
+\section*{1. Zero Product Property}
+
+\begin{friendlyrule}{Zero Product Property}
+If $mn=0$, then $m=0$ or $n=0$.
+\end{friendlyrule}
+
+For example,
+
+\[
+x^2-5x+6=0
+\]
+
+factors as
+
+\[
+(x-2)(x-3)=0,
+\]
+
+so $x=2$ or $x=3$.
+
+\begin{friendlyex}{}
+Use the zero product property to solve the following quadratic equations:
+\begin{itemize}
+    \item[(a)] $x^2-2x-15=0$
+    \item[(b)] $3x^2+7x-6=0$
+\end{itemize}
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+\textbf{(a)} Factor:
+
+\[
+x^2-2x-15=(x-5)(x+3)=0.
+\]
+
+So $x-5=0$ or $x+3=0$, giving
+
+\[
+x=5\qquad\text{or}\qquad x=-3.
+\]
+
+\textbf{(b)} We need two numbers whose product is $3\cdot(-6)=-18$ and whose sum is $7$: these are $9$ and $-2$.
+
+\[
+3x^2+9x-2x-6=0.
+\]
+
+\[
+3x(x+3)-2(x+3)=0.
+\]
+
+\[
+(3x-2)(x+3)=0.
+\]
+
+So $3x-2=0$ or $x+3=0$, giving
+
+\[
+x=\frac23\qquad\text{or}\qquad x=-3.
+\]
+\end{solutionbox}
+
+  
+
+\section*{2. Square Root Property}
+
+\begin{friendlyrule}{Square Root Property}
+If $x^2=k$, then $x=\pm\sqrt{k}$.
+\end{friendlyrule}
+
+For example,
+
+\[
+x^2=25\ \Longrightarrow\ x=\pm 5,\qquad\qquad (x+5)^2=8\ \Longrightarrow\ x+5=\pm\sqrt8.
+\]
+
+\section*{3. Completing the Square}
+
+A \funhl{perfect square trinomial} can be written as the square of a binomial:
+
+\[
+x^2+10x+25\ \longrightarrow\ (x+5)^2,\qquad\qquad y^2-8y+16\ \longrightarrow\ (y-4)^2.
+\]
+
+\begin{friendlyex}{}
+Solve the following quadratic equations by completing the square.
+\begin{itemize}
+    \item[(a)] $x^2-6x+7=0$
+    \item[(b)] $3x^2+7x-8=0$
+\end{itemize}
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+\textbf{(a)}
+
+\[
+x^2-6x=-7.
+\]
+
+Add $\left(\frac{-6}{2}\right)^2=9$ to both sides:
+
+\[
+x^2-6x+9=-7+9=2.
+\]
+
+\[
+(x-3)^2=2.
+\]
+
+\[
+x-3=\pm\sqrt2.
+\]
+
+\[
+x=3\pm\sqrt2.
+\]
+
+\textbf{(b)} Divide by $3$:
+
+\[
+x^2+\frac73 x-\frac83=0.
+\]
+
+\[
+x^2+\frac73 x=\frac83.
+\]
+
+Add $\left(\frac{7}{6}\right)^2=\frac{49}{36}$ to both sides:
+
+\[
+x^2+\frac73 x+\frac{49}{36}=\frac83+\frac{49}{36}=\frac{96}{36}+\frac{49}{36}=\frac{145}{36}.
+\]
+
+\[
+\left(x+\frac76\right)^2=\frac{145}{36}.
+\]
+
+\[
+x+\frac76=\pm\frac{\sqrt{145}}{6}.
+\]
+
+\[
+x=\frac{-7\pm\sqrt{145}}{6}.
+\]
+\end{solutionbox}
+
+  
+
+\section*{4. Quadratic Formula}
+
+\begin{friendlyrule}{Quadratic Formula}
+For the quadratic equation written in standard form $ax^2+bx+c=0$, the solutions are given by
+
+\[
+x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}.
+\]
+\end{friendlyrule}
+
+\begin{friendlyex}{}
+Solve the following quadratic equations by using the quadratic formula.
+\begin{itemize}
+    \item[(a)] $3x^2+7x-8=0$
+    \item[(b)] $5x^2-6x=-2$
+\end{itemize}
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+\textbf{(a)} Here $a=3$, $b=7$, $c=-8$:
+
+\[
+x=\frac{-7\pm\sqrt{7^2-4(3)(-8)}}{2(3)}=\frac{-7\pm\sqrt{49+96}}{6}=\frac{-7\pm\sqrt{145}}{6}.
+\]
+
+This matches the completing-the-square result above --- a good consistency check!
+
+\textbf{(b)} Rewrite in standard form: $5x^2-6x+2=0$, so $a=5$, $b=-6$, $c=2$:
+
+\[
+x=\frac{6\pm\sqrt{(-6)^2-4(5)(2)}}{2(5)}=\frac{6\pm\sqrt{36-40}}{10}=\frac{6\pm\sqrt{-4}}{10}=\frac{6\pm2i}{10}.
+\]
+
+\[
+x=\frac35\pm\frac15 i.
+\]
+\end{solutionbox}
+
+  
+
+\section*{5. The Discriminant}
+
+\begin{friendlyrule}{Discriminant and Properties of Solutions}
+For $ax^2+bx+c=0$, where $a$, $b$, $c$ are real numbers, the \funhl{discriminant} is $b^2-4ac$.
+\begin{itemize}
+    \item[(i)] $b^2-4ac=0$: one real-number solution;
+    \item[(ii)] $b^2-4ac>0$: two distinct real-number solutions;
+    \item[(iii)] $b^2-4ac<0$: two distinct imaginary solutions, complex conjugates.
+\end{itemize}
+For case (ii), if $b^2-4ac$ is a perfect square, the solutions are rational; otherwise, they are irrational.
+\end{friendlyrule}
+
+\begin{friendlyex}{}
+Determine the properties of the solutions by computing the discriminant of each quadratic equation.
+\begin{itemize}
+    \item[(a)] $4x^2-10x+25=0$
+    \item[(b)] $2x^2-5x-3=0$
+    \item[(c)] $3x^2-2x=-5$
+\end{itemize}
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+\textbf{(a)} $a=4$, $b=-10$, $c=25$:
+
+\[
+b^2-4ac=100-4(4)(25)=100-400=-300<0.
+\]
+
+Two distinct imaginary solutions (complex conjugates).
+
+\textbf{(b)} $a=2$, $b=-5$, $c=-3$:
+
+\[
+b^2-4ac=25-4(2)(-3)=25+24=49>0,
+\]
+
+and $49$ is a perfect square. Two distinct \textbf{rational} real-number solutions.
+
+\textbf{(c)} Rewrite in standard form: $3x^2-2x+5=0$, so $a=3$, $b=-2$, $c=5$:
+
+\[
+b^2-4ac=4-4(3)(5)=4-60=-56<0.
+\]
+
+Two distinct imaginary solutions (complex conjugates).
+\end{solutionbox}
+
+  
+
+\section*{Summary}
+
+\begin{friendlyrule}{Key Ideas}
+\begin{itemize}
+    \item A quadratic equation has the form $ax^2+bx+c=0$, with $a\neq 0$.
+    \item Zero product property: if $mn=0$, then $m=0$ or $n=0$ --- useful when the equation factors nicely.
+    \item Square root property: if $x^2=k$, then $x=\pm\sqrt{k}$.
+    \item Completing the square turns $x^2+bx$ into a perfect square trinomial by adding $\left(\frac{b}{2}\right)^2$.
+    \item The quadratic formula $x=\dfrac{-b\pm\sqrt{b^2-4ac}}{2a}$ solves any quadratic equation.
+    \item The discriminant $b^2-4ac$ tells you the number and type of solutions before you even solve.
+\end{itemize}
+\end{friendlyrule}
+
+\end{document}

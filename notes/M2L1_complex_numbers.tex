@@ -1,0 +1,440 @@
+\documentclass[12pt]{article}
+
+\usepackage{fontspec}
+\newfontfamily\handwriting{a-casual-handwritten-pen}[Path=../assets/fonts/,Extension=.ttf,Scale=1.5]
+\newfontfamily\comic{Comic Neue}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\usepackage{titlesec}
+\usepackage{multicol}
+\usepackage{environ}
+
+\usetikzlibrary{fit, positioning, arrows.meta}
+
+% --- Custom Colors ---
+\definecolor{primaryblue}{RGB}{42, 111, 151}
+\definecolor{exbg}{RGB}{255, 240, 245}
+\definecolor{rulebg}{RGB}{232, 245, 233}
+\definecolor{highlight}{RGB}{255, 243, 176}
+\definecolor{pinkanno}{RGB}{255, 105, 180}
+\definecolor{purpleanno}{RGB}{147, 112, 219}
+\definecolor{solutionbg}{RGB}{245, 245, 255}
+
+% --- Header Styling ---
+\titleformat{\section}{\color{primaryblue}\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\color{primaryblue}\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+% --- Friendly Boxes ---
+% --- Auto-numbered Example Box ---
+\newcounter{examplenum}
+
+\newtcolorbox{friendlyexbox}[1]{
+    colback=exbg,
+    colframe=pinkanno!50,
+    arc=5pt,
+    title=\textbf{#1},
+    coltitle=black,
+    attach title to upper,
+    after title={:\quad}
+}
+
+\newenvironment{friendlyex}{%
+    \refstepcounter{examplenum}%
+    \begin{friendlyexbox}{Example \theexamplenum}%
+}{%
+    \end{friendlyexbox}%
+}
+
+\newtcolorbox{friendlyrule}[1]{
+    colback=rulebg,
+    colframe=primaryblue!30,
+    arc=5pt,
+    fonttitle=\bfseries,
+    title={#1},
+    coltitle=primaryblue
+}
+
+\newcommand{\funhl}[1]{\sethlcolor{highlight}\hl{#1}}
+
+% --- Show/Hide Solutions ---
+\newif\ifshowsolutions
+
+% Uncomment the next line to show solutions.
+\showsolutionstrue
+
+\newcommand{\solutionblank}{\vspace{25ex}}
+
+\NewEnviron{solutionbox}{
+\ifshowsolutions
+\begin{tcolorbox}[
+    colback=solutionbg,
+    colframe=purpleanno!45,
+    arc=5pt,
+    title={Solution},
+    coltitle=primaryblue,
+    fonttitle=\bfseries
+]
+\BODY
+\end{tcolorbox}
+\else
+\solutionblank
+\fi
+}
+
+\begin{document}
+\handwriting
+
+\begin{center}
+    \Large\textbf{\color{primaryblue}Module 2 Lesson 1\\Complex Numbers} \\
+    \vspace{0.2cm}
+    \hrule
+\end{center}
+
+\section*{Objectives}
+
+\begin{friendlyrule}{In this lesson, we will learn how to}
+\begin{itemize}
+    \item define the imaginary unit $i$ and simplify powers of $i$;
+    \item write square roots of negative numbers in terms of $i$;
+    \item add, subtract, multiply, and divide complex numbers;
+    \item find the conjugate of a complex number.
+\end{itemize}
+\end{friendlyrule}
+
+\section*{1. The Imaginary Unit}
+
+The discussion of complex numbers begins with the imaginary number system. Imaginary numbers received an unfortunate name, as they are often thought of as being ``made-up'' or not real, which is not true.
+
+Today, $i$ is very useful. Engineers use it to study stresses on beams and resonance. Complex numbers help study the flow of fluid around objects, and they are used in electric circuits and in transmitting radio waves. If it weren't for $i$, we might not be able to talk on cell phones.
+
+\begin{friendlyrule}{The Imaginary Unit $i$}
+\[
+i=\sqrt{-1}.
+\]
+\end{friendlyrule}
+
+From the definition of $i$, we notice that
+
+\[
+i=i,
+\]
+
+\[
+i^2=i\cdot i=\sqrt{-1}\sqrt{-1}=\left(\sqrt{-1}\right)^2=-1,
+\]
+
+\[
+i^3=i^2\cdot i=-1\cdot i=-i,
+\]
+
+\[
+i^4=i^2\cdot i^2=-1\cdot -1=1.
+\]
+
+Powers of $i$ repeat in a cycle of length $4$: $i,\,-1,\,-i,\,1,\,i,\,-1,\,\ldots$ To simplify a power of $i$, divide the exponent by $4$ and use the remainder.
+
+\begin{friendlyex}{}
+Simplify the following:
+\begin{itemize}
+    \item[(a)] $i^{22}$
+    \item[(b)] $i^{68}$
+\end{itemize}
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+\textbf{(a)} $22=4(5)+2$, so
+
+\[
+i^{22}=\left(i^4\right)^5\cdot i^2=1^5\cdot(-1)=-1.
+\]
+
+\textbf{(b)} $68=4(17)+0$, so
+
+\[
+i^{68}=\left(i^4\right)^{17}=1^{17}=1.
+\]
+\end{solutionbox}
+
+  
+
+\section*{2. Square Roots of Negative Numbers}
+
+\begin{friendlyex}{}
+Write each expression in terms of $i$ and simplify.
+\begin{itemize}
+    \item[(a)] $\sqrt{-16}$
+    \item[(b)] $\sqrt{-28}$
+    \item[(c)] $\sqrt{-50}$
+\end{itemize}
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+\textbf{(a)}
+
+\[
+\sqrt{-16}=\sqrt{16}\sqrt{-1}=4i.
+\]
+
+\textbf{(b)}
+
+\[
+\sqrt{-28}=\sqrt{4\cdot 7}\sqrt{-1}=2\sqrt{7}\,i.
+\]
+
+\textbf{(c)}
+
+\[
+\sqrt{-50}=\sqrt{25\cdot 2}\sqrt{-1}=5\sqrt{2}\,i.
+\]
+\end{solutionbox}
+
+  
+
+\begin{friendlyrule}{A Word of Caution}
+Recall the multiplication and quotient properties of radicals,
+
+\[
+\sqrt{a}\cdot\sqrt{b}=\sqrt{ab},\qquad \frac{\sqrt{a}}{\sqrt{b}}=\sqrt{\frac{a}{b}},
+\]
+
+\emph{provided that the roots represent real numbers.} If $\sqrt{a}$ and $\sqrt{b}$ are not real numbers, these properties \textbf{cannot} be used --- always convert to $i$-form first.
+\end{friendlyrule}
+
+\begin{friendlyex}{}
+Multiply or divide the following as indicated:
+\begin{itemize}
+    \item[(a)] $\sqrt{-16}\cdot\sqrt{-4}$
+    \item[(b)] $\dfrac{\sqrt{-80}}{\sqrt{-5}}$
+\end{itemize}
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+\textbf{(a)} Convert to $i$-form first:
+
+\[
+\sqrt{-16}\cdot\sqrt{-4}=(4i)(2i)=8i^2=8(-1)=-8.
+\]
+
+\textbf{(b)} Convert to $i$-form first:
+
+\[
+\frac{\sqrt{-80}}{\sqrt{-5}}=\frac{4\sqrt{5}\,i}{\sqrt{5}\,i}=4.
+\]
+\end{solutionbox}
+
+  
+
+\section*{3. Complex Numbers in Standard Form}
+
+\begin{friendlyrule}{Standard Form}
+The standard form of a complex number is
+
+\[
+a+bi,
+\]
+
+where $a$ is the \funhl{real part} and $b$ is the \funhl{imaginary part}. Examples:
+
+\[
+4+3i,\qquad -2+6i,\qquad \frac23-\frac45 i.
+\]
+\end{friendlyrule}
+
+\begin{friendlyex}{}
+Identify the real part and the imaginary part of
+
+\[
+2+5i.
+\]
+
+If $b=0$, the number is just a \underline{\hspace{2cm}} number. If $a=0$, it is a \underline{\hspace{3cm}} number.
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+For $2+5i$:
+
+\[
+\text{Real part}=2,\qquad \text{Imaginary part}=5.
+\]
+
+If $b=0$, the number is just a \textbf{real} number, for example $4+0i=4$.
+
+If $a=0$, it is a \textbf{pure imaginary} number, for example $0+5i=5i$.
+\end{solutionbox}
+
+  
+
+\section*{4. Adding and Subtracting Complex Numbers}
+
+\begin{friendlyrule}{Adding/Subtracting Complex Numbers}
+To add or subtract complex numbers, add or subtract the real parts and the imaginary parts separately. Always write the answer in standard form $a\pm bi$.
+\end{friendlyrule}
+
+\begin{friendlyex}{}
+Add the following complex numbers:
+\begin{itemize}
+    \item[(a)] $(4+30i)+(-3+7i)$
+    \item[(b)] $(-5+6i)+(12-11i)$
+\end{itemize}
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+\textbf{(a)}
+
+\[
+(4+30i)+(-3+7i)=(4-3)+(30+7)i=1+37i.
+\]
+
+\textbf{(b)}
+
+\[
+(-5+6i)+(12-11i)=(-5+12)+(6-11)i=7-5i.
+\]
+\end{solutionbox}
+
+  
+
+\section*{5. Multiplying Complex Numbers}
+
+\begin{friendlyrule}{Multiplying Complex Numbers}
+To multiply complex numbers, use the \funhl{FOIL} technique, and use the fact that $i^2=-1$ to simplify. Always write the final answer in standard form.
+\end{friendlyrule}
+
+\begin{friendlyex}{}
+Multiply: $(-2+6i)(4+3i)$.
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+Using FOIL:
+
+\[
+(-2+6i)(4+3i)=-8-6i+24i+18i^2.
+\]
+
+Since $i^2=-1$:
+
+\[
+=-8+18i+18(-1)=-8+18i-18=-26+18i.
+\]
+\end{solutionbox}
+
+  
+
+\section*{6. Conjugates}
+
+\begin{friendlyrule}{Conjugates}
+The complex numbers $a+bi$ and $a-bi$ are called \funhl{conjugates} of each other: the real parts are the \textbf{same}, but the imaginary parts are of equal magnitude and \textbf{opposite} signs. Multiplying a complex number by its conjugate always produces a \textbf{real} number.
+\end{friendlyrule}
+
+\begin{friendlyex}{}
+Find the conjugate of each complex number.
+\begin{itemize}
+    \item[(a)] $2-5i$
+    \item[(b)] $-5+7i$
+    \item[(c)] $-9i$
+\end{itemize}
+Then multiply: $(3-4i)(3+4i)$.
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+\textbf{(a)} Conjugate of $2-5i$ is $2+5i$.
+
+\textbf{(b)} Conjugate of $-5+7i$ is $-5-7i$.
+
+\textbf{(c)} Since $-9i=0-9i$, its conjugate is $0+9i=9i$.
+
+\textbf{Multiply:}
+
+\[
+(3-4i)(3+4i)=9+12i-12i-16i^2=9-16(-1)=9+16=25.
+\]
+
+Notice the result, $25$, is a real number, as expected.
+\end{solutionbox}
+
+  
+
+\section*{7. Dividing Complex Numbers}
+
+\begin{friendlyrule}{Dividing Complex Numbers}
+To divide by a non-zero complex number, multiply the numerator and denominator by the conjugate of the denominator, then simplify and write the answer in standard form.
+\end{friendlyrule}
+
+\begin{friendlyex}{}
+Divide. Simplify and write the answer in standard form.
+\begin{itemize}
+    \item[(a)] $\dfrac{2+3i}{3-4i}$
+    \item[(b)] $\dfrac{4-7i}{5+3i}$
+\end{itemize}
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+\textbf{(a)} Multiply by the conjugate of the denominator:
+
+\[
+\frac{2+3i}{3-4i}\cdot\frac{3+4i}{3+4i}=\frac{(2+3i)(3+4i)}{(3-4i)(3+4i)}.
+\]
+
+Numerator: $6+8i+9i+12i^2=6+17i-12=-6+17i$.
+
+Denominator: $9-16i^2=9+16=25$.
+
+\[
+\frac{2+3i}{3-4i}=\frac{-6+17i}{25}=-\frac{6}{25}+\frac{17}{25}i.
+\]
+
+\textbf{(b)} Multiply by the conjugate of the denominator:
+
+\[
+\frac{4-7i}{5+3i}\cdot\frac{5-3i}{5-3i}=\frac{(4-7i)(5-3i)}{(5+3i)(5-3i)}.
+\]
+
+Numerator: $20-12i-35i+21i^2=20-47i-21=-1-47i$.
+
+Denominator: $25-9i^2=25+9=34$.
+
+\[
+\frac{4-7i}{5+3i}=\frac{-1-47i}{34}=-\frac{1}{34}-\frac{47}{34}i.
+\]
+\end{solutionbox}
+
+  
+
+\section*{Summary}
+
+\begin{friendlyrule}{Key Ideas}
+\begin{itemize}
+    \item $i=\sqrt{-1}$, and $i^2=-1$. Powers of $i$ cycle with period $4$: $i,-1,-i,1$.
+    \item Write $\sqrt{-n}$ (for $n>0$) as $\sqrt{n}\,i$ before applying radical rules --- the multiplication/quotient properties of radicals only apply to real square roots.
+    \item Standard form of a complex number is $a+bi$, with real part $a$ and imaginary part $b$.
+    \item Add/subtract complex numbers by combining real and imaginary parts separately.
+    \item Multiply complex numbers with FOIL, using $i^2=-1$.
+    \item The conjugate of $a+bi$ is $a-bi$; their product is always the real number $a^2+b^2$.
+    \item Divide complex numbers by multiplying numerator and denominator by the conjugate of the denominator.
+\end{itemize}
+\end{friendlyrule}
+
+\end{document}
