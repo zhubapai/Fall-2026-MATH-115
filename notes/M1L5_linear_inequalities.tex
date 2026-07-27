@@ -78,6 +78,28 @@
 \fi
 }
 
+% --- Number Line Commands ---
+\newcommand{\blanknumberline}{
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[<->, thick] (-6.5,0) -- (6.5,0);
+    \foreach \x in {-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6}
+    {
+        \draw[thick] (\x,0.12) -- (\x,-0.12);
+        \node[below] at (\x,-0.12) {\x};
+    }
+\end{tikzpicture}
+\end{center}
+}
+
+\newcommand{\openpoint}[1]{
+\draw[thick, fill=white] (#1,0) circle (0.13);
+}
+
+\newcommand{\closedpoint}[1]{
+\draw[thick, fill=black] (#1,0) circle (0.13);
+}
+
 \begin{document}
 \handwriting
 
@@ -118,7 +140,7 @@ When both sides of an inequality are multiplied (or divided) by a \textbf{negati
 \end{friendlyrule}
 
 \begin{friendlyex}{Example 1}
-Solve each inequality. Express the solution in interval notation.
+Solve each inequality. Express the solution in interval notation, and graph the solution.
 
 \begin{itemize}
     \item[(a)] $2x-1>x+5$
@@ -127,7 +149,9 @@ Solve each inequality. Express the solution in interval notation.
 \end{itemize}
 \end{friendlyex}
 
- 
+\blanknumberline
+\blanknumberline
+\blanknumberline
 
 \begin{solutionbox}
 \textbf{(a)}
@@ -145,6 +169,19 @@ x>6.
 \]
 
 Interval notation: $(6,\infty)$.
+
+\[
+\begin{tikzpicture}[scale=0.7]
+    \draw[<->, thick] (-6.5,0) -- (6.5,0);
+    \foreach \x in {-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6}
+    {
+        \draw[thick] (\x,0.12) -- (\x,-0.12);
+        \node[below] at (\x,-0.12) {\x};
+    }
+    \draw[line width=2pt, primaryblue, ->] (6,0) -- (6.6,0);
+    \openpoint{6}
+\end{tikzpicture}
+\]
 
 \textbf{(b)}
 
@@ -165,6 +202,19 @@ x>-2.
 \]
 
 Interval notation: $(-2,\infty)$.
+
+\[
+\begin{tikzpicture}[scale=0.7]
+    \draw[<->, thick] (-6.5,0) -- (6.5,0);
+    \foreach \x in {-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6}
+    {
+        \draw[thick] (\x,0.12) -- (\x,-0.12);
+        \node[below] at (\x,-0.12) {\x};
+    }
+    \draw[line width=2pt, primaryblue, ->] (-2,0) -- (6.2,0);
+    \openpoint{-2}
+\end{tikzpicture}
+\]
 
 \textbf{(c)} Multiply both sides by $6$ to clear fractions:
 
@@ -187,6 +237,20 @@ x\le -\frac{12}{7}.
 \]
 
 Interval notation: $\left(-\infty,-\dfrac{12}{7}\right]$.
+
+\[
+\begin{tikzpicture}[scale=0.7]
+    \draw[<->, thick] (-6.5,0) -- (6.5,0);
+    \foreach \x in {-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6}
+    {
+        \draw[thick] (\x,0.12) -- (\x,-0.12);
+        \node[below] at (\x,-0.12) {\x};
+    }
+    \draw[line width=2pt, primaryblue, <-] (-6.2,0) -- (-1.71,0);
+    \closedpoint{-1.71}
+    \node[below] at (-1.71,-0.4) {\scriptsize $-12/7$};
+\end{tikzpicture}
+\]
 \end{solutionbox}
 
   
@@ -194,7 +258,7 @@ Interval notation: $\left(-\infty,-\dfrac{12}{7}\right]$.
 \section*{2. Double Inequalities}
 
 \begin{friendlyex}{Example 2}
-Solve each double inequality. Express the solution in interval notation.
+Solve each double inequality. Express the solution in interval notation and graph the solution.
 
 \begin{itemize}
     \item[(a)] $3<5+4x<6$
@@ -202,7 +266,8 @@ Solve each double inequality. Express the solution in interval notation.
 \end{itemize}
 \end{friendlyex}
 
- 
+\blanknumberline
+\blanknumberline
 
 \begin{solutionbox}
 \textbf{(a)} Subtract $5$ from all three parts:
@@ -219,6 +284,21 @@ Divide by $4$:
 
 Interval notation: $\left(-\dfrac12,\dfrac14\right)$.
 
+\[
+\begin{tikzpicture}[scale=0.7]
+    \draw[<->, thick] (-6.5,0) -- (6.5,0);
+    \foreach \x in {-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6}
+    {
+        \draw[thick] (\x,0.12) -- (\x,-0.12);
+        \node[below] at (\x,-0.12) {\x};
+    }
+    \draw[line width=2pt, primaryblue] (-0.5,0) -- (0.25,0);
+    \openpoint{-0.5} \openpoint{0.25}
+    \node[below] at (-0.5,-0.4) {\scriptsize $-1/2$};
+    \node[below] at (0.25,-0.4) {\scriptsize $1/4$};
+\end{tikzpicture}
+\]
+
 \textbf{(b)} Split into two inequalities.
 
 Left: $2x-3\le 4x+3\ \Longrightarrow\ -6\le 2x\ \Longrightarrow\ x\ge -3$.
@@ -232,6 +312,19 @@ Combining:
 \]
 
 Interval notation: $[-3,1)$.
+
+\[
+\begin{tikzpicture}[scale=0.7]
+    \draw[<->, thick] (-6.5,0) -- (6.5,0);
+    \foreach \x in {-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6}
+    {
+        \draw[thick] (\x,0.12) -- (\x,-0.12);
+        \node[below] at (\x,-0.12) {\x};
+    }
+    \draw[line width=2pt, primaryblue] (-3,0) -- (1,0);
+    \closedpoint{-3} \openpoint{1}
+\end{tikzpicture}
+\]
 \end{solutionbox}
 
   
@@ -298,8 +391,9 @@ Plan A is the better financial choice when the job takes \textbf{fewer than $25$
 \begin{itemize}
     \item Adding or subtracting the same number from both sides of an inequality never changes the direction of the inequality.
     \item Multiplying or dividing both sides by a \textbf{negative} number \textbf{reverses} the inequality sign.
+    \item Use an open circle for $<$ or $>$, and a closed circle for $\le$ or $\ge$.
     \item Double inequalities can be solved all at once (if the variable appears the same way in all parts) or split into two separate inequalities and combined.
-    \item Solutions are typically expressed using interval notation and can be graphed on a number line.
+    \item Solutions are typically expressed using interval notation and graphed on a number line.
 \end{itemize}
 \end{friendlyrule}
 

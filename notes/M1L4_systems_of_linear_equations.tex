@@ -78,6 +78,27 @@
 \fi
 }
 
+% --- Coordinate Grid Command ---
+\newcommand{\blankgrid}{
+\begin{center}
+\begin{tikzpicture}[scale=0.45]
+    \draw[step=1cm, gray, very thin] (-8,-8) grid (8,8);
+    \draw[<->, line width=1pt] (-8,0) -- (8,0);
+    \draw[<->, line width=1pt] (0,-8) -- (0,8);
+    \foreach \x in {-8,-6,-4,-2,2,4,6,8}
+    {
+        \node[below] at (\x,0) {\x};
+    }
+    \foreach \y in {-8,-6,-4,-2,2,4,6,8}
+    {
+        \node[left] at (0,\y) {\y};
+    }
+    \node[below right] at (8,0) {$x$};
+    \node[above left] at (0,8) {$y$};
+\end{tikzpicture}
+\end{center}
+}
+
 \begin{document}
 \handwriting
 
@@ -330,9 +351,25 @@ Solve by graphing:
 \]
 \end{friendlyex}
 
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+\draw[step=1, gray!40, very thin] (-3.5,-3.5) grid (5.5,8.5);
+\draw[-{Latex}] (-3.5,0) -- (5.5,0) node[right] {$x$};
+\draw[-{Latex}] (0,-3.5) -- (0,8.5) node[above] {$y$};
+\draw[purple, thick, domain=-3.2:3, samples=2] plot (\x, {1.5*\x+3.5}) node[right] {\scriptsize $3x-2y=-7$};
+\draw[blue, thick, domain=-1.5:4.7, samples=2] plot (\x, {-2*\x+7}) node[right] {\scriptsize $2x+y=7$};
+\fill[green!60!black] (1,5) circle (0.09);
+\node[above right] at (1,5) {$(1,5)$};
+\end{tikzpicture}
+\end{center}
+
  
 
 \begin{solutionbox}
+Graph the first equation. For the $x$-intercept, set $y=0$: $3x=-7 \Rightarrow x=-\frac73$. For the $y$-intercept, set $x=0$: $-2y=-7 \Rightarrow y=\frac72$.
+
+Graph the second equation. For the $x$-intercept, set $y=0$: $2x=7 \Rightarrow x=\frac72$. For the $y$-intercept, set $x=0$: $y=7$.
+
 Graphing both lines shows they intersect at
 
 \[
