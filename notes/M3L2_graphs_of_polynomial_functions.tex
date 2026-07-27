@@ -1,0 +1,268 @@
+\documentclass[12pt]{article}
+
+\usepackage{fontspec}
+\newfontfamily\handwriting{a-casual-handwritten-pen}[Path=../assets/fonts/,Extension=.ttf,Scale=1.5]
+\newfontfamily\comic{Comic Neue}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\usepackage{titlesec}
+\usepackage{multicol}
+\usepackage{environ}
+
+\usetikzlibrary{fit, positioning, arrows.meta, decorations.pathreplacing}
+
+% --- Custom Colors ---
+\definecolor{primaryblue}{RGB}{42, 111, 151}
+\definecolor{exbg}{RGB}{255, 240, 245}
+\definecolor{rulebg}{RGB}{232, 245, 233}
+\definecolor{highlight}{RGB}{255, 243, 176}
+\definecolor{pinkanno}{RGB}{255, 105, 180}
+\definecolor{purpleanno}{RGB}{147, 112, 219}
+\definecolor{solutionbg}{RGB}{245, 245, 255}
+
+% --- Header Styling ---
+\titleformat{\section}{\color{primaryblue}\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\color{primaryblue}\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+% --- Friendly Boxes ---
+% --- Auto-numbered Example Box ---
+\newcounter{examplenum}
+
+\newtcolorbox{friendlyexbox}[1]{
+    colback=exbg,
+    colframe=pinkanno!50,
+    arc=5pt,
+    title=\textbf{#1},
+    coltitle=black,
+    attach title to upper,
+    after title={:\quad}
+}
+
+\newenvironment{friendlyex}{%
+    \refstepcounter{examplenum}%
+    \begin{friendlyexbox}{Example \theexamplenum}%
+}{%
+    \end{friendlyexbox}%
+}
+
+\newtcolorbox{friendlyrule}[1]{
+    colback=rulebg,
+    colframe=primaryblue!30,
+    arc=5pt,
+    fonttitle=\bfseries,
+    title={#1},
+    coltitle=primaryblue
+}
+
+\newcommand{\funhl}[1]{\sethlcolor{highlight}\hl{#1}}
+
+% --- Show/Hide Solutions ---
+\newif\ifshowsolutions
+
+% Uncomment the next line to show solutions.
+\showsolutionstrue
+
+\newcommand{\solutionblank}{\vspace{25ex}}
+
+\NewEnviron{solutionbox}{
+\ifshowsolutions
+\begin{tcolorbox}[
+    colback=solutionbg,
+    colframe=purpleanno!45,
+    arc=5pt,
+    title={Solution},
+    coltitle=primaryblue,
+    fonttitle=\bfseries
+]
+\BODY
+\end{tcolorbox}
+\else
+\solutionblank
+\fi
+}
+
+\begin{document}
+\handwriting
+
+\begin{center}
+    \Large\textbf{\color{primaryblue}Module 3 Lesson 2\\Graphs of Polynomial Functions} \\
+    \vspace{0.2cm}
+    \hrule
+\end{center}
+
+\section*{Objectives}
+
+\begin{friendlyrule}{In this lesson, we will learn how to}
+\begin{itemize}
+    \item sketch the graph of a polynomial function using end behavior, intercepts, and multiplicity;
+    \item read a polynomial's graph to recover its zeros, multiplicities, and a possible formula.
+\end{itemize}
+\end{friendlyrule}
+
+\section*{1. Strategy for Sketching a Polynomial}
+
+\begin{friendlyrule}{Steps to Sketch $f(x)$}
+\begin{enumerate}
+    \item Determine the \funhl{end behavior} (degree and sign of leading coefficient).
+    \item Find the \funhl{$y$-intercept}: evaluate $f(0)$.
+    \item Find the \funhl{zeros} (factor if necessary) and their multiplicities.
+    \item Determine whether the graph \funhl{crosses} or \funhl{bounces} at each zero.
+    \item Plot a few additional points if needed, then connect with a smooth, continuous curve consistent with the end behavior.
+\end{enumerate}
+\end{friendlyrule}
+
+\begin{friendlyex}{}
+Sketch the graph of $f(x)=-\dfrac{2}{3}(x+2)^2(x-3)$.
+\end{friendlyex}
+
+\begin{solutionbox}
+\textbf{End behavior:} degree $3$ (odd), leading coefficient $-\frac23<0$: left up, right down.
+
+\textbf{$y$-intercept:} $f(0)=-\frac23(2)^2(-3)=-\frac23(4)(-3)=8$, i.e.\ $(0,8)$.
+
+\textbf{Zeros:} $x=-2$ (multiplicity $2$, bounce), $x=3$ (multiplicity $1$, cross).
+
+\vspace{0.3cm}
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[xscale=0.85,yscale=0.11]
+\draw[-{Latex}] (-3.6,0) -- (4.2,0) node[right] {$x$};
+\draw[-{Latex}] (0,-26) -- (0,15) node[above] {$y$};
+\foreach \x in {-3,-2,-1,1,2,3,4} \draw (\x,-0.8) -- (\x,0.8) node[below=6pt] {\tiny $\x$};
+\draw[teal, thick, domain=-3.35:3.75, samples=90, smooth] plot (\x, {-2/3*(\x+2)*(\x+2)*(\x-3)});
+\filldraw[pinkanno] (-2,0) circle (2pt);
+\filldraw[pinkanno] (3,0) circle (2pt);
+\filldraw[pinkanno] (0,8) circle (2pt);
+\node[anchor=south west] at (-3.5,10) {\small $(0,8)$};
+\node[below] at (-2,-9) {\small $x=-2$};
+\node[below] at (3,-9) {\small $x=3$};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{solutionbox}
+
+\begin{friendlyex}{}
+Sketch the graph of $f(x)=\dfrac{3}{8}(x+2)(x-1)^2(x-4)$.
+\end{friendlyex}
+
+\begin{solutionbox}
+\textbf{End behavior:} degree $4$ (even), leading coefficient $\frac38>0$: both ends go up.
+
+\textbf{$y$-intercept:} $f(0)=\frac38(2)(1)(-4)=\frac38(-8)=-3$, i.e.\ $(0,-3)$.
+
+\textbf{Zeros:} $x=-2$ (multiplicity $1$, cross), $x=1$ (multiplicity $2$, bounce), $x=4$ (multiplicity $1$, cross).
+
+\vspace{0.3cm}
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[xscale=0.8,yscale=0.11]
+\draw[-{Latex}] (-3.2,0) -- (5,0) node[right] {$x$};
+\draw[-{Latex}] (0,-10) -- (0,42) node[above] {$y$};
+\foreach \x in {-2,-1,1,2,3,4} \draw (\x,-1) -- (\x,1) node[below=6pt] {\tiny $\x$};
+\draw[teal, thick, domain=-2.75:4.55, samples=90, smooth] plot (\x, {3/8*(\x+2)*(\x-1)*(\x-1)*(\x-4)});
+\filldraw[pinkanno] (-2,0) circle (2pt);
+\filldraw[pinkanno] (1,0) circle (2pt);
+\filldraw[pinkanno] (4,0) circle (2pt);
+\filldraw[pinkanno] (0,-3) circle (2pt);
+\node[anchor=south east] at (0,4) {\small $(0,-3)$};
+\node[below] at (-2,-4.5) {\small $x=-2$};
+\node[above] at (1,4) {\small $x=1$};
+\node[below] at (4,-4.5) {\small $x=4$};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{solutionbox}
+
+\section*{2. Reading a Graph}
+
+\begin{friendlyrule}{Reading Zeros and Multiplicity from a Graph}
+\begin{itemize}
+    \item Where the graph \funhl{crosses} the $x$-axis, the corresponding zero has \funhl{odd} multiplicity (often $1$).
+    \item Where the graph \funhl{bounces} (touches and turns), the corresponding zero has \funhl{even} multiplicity (often $2$).
+    \item Multiply the leading coefficient's sign and the end behavior together with the zeros to build a possible formula $f(x)=a(x-r_1)^{m_1}(x-r_2)^{m_2}\cdots$.
+\end{itemize}
+\end{friendlyrule}
+
+\begin{friendlyex}{}
+The graph of a degree-$4$ polynomial is shown below. Determine its zeros, their multiplicities, and a possible formula for $f(x)$.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[xscale=0.95,yscale=0.5]
+\draw[-{Latex}] (-4,0) -- (3.5,0) node[right] {$x$};
+\draw[-{Latex}] (0,-5) -- (0,10) node[above] {$y$};
+\foreach \x in {-3,-2,-1,1,2,3} \draw (\x,-0.2) -- (\x,0.2) node[below=4pt] {\tiny $\x$};
+\draw[thick, domain=-3.55:3.15, samples=90, smooth] plot (\x, {1/4*(\x+3)*(\x+1)*(\x-2)*(\x-2)});
+\filldraw[pinkanno] (-3,0) circle (2pt);
+\filldraw[pinkanno] (-1,0) circle (2pt);
+\filldraw[pinkanno] (2,0) circle (2pt);
+\filldraw[pinkanno] (0,3) circle (2pt);
+\node[above] at (0.6,3.3) {\small $(0,3)$};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{friendlyex}
+
+\begin{solutionbox}
+The graph \textbf{crosses} at $x=-3$ and $x=-1$ (odd multiplicity, take $1$), and \textbf{bounces} at $x=2$ (even multiplicity, take $2$). This already accounts for degree $1+1+2=4$, matching the given degree.
+
+A possible formula:
+\[
+f(x)=a(x+3)(x+1)(x-2)^2.
+\]
+
+Use the $y$-intercept $(0,3)$ to find $a$:
+\[
+3=a(3)(1)(4)=12a \implies a=\frac14.
+\]
+
+\[
+\boxed{f(x)=\frac14(x+3)(x+1)(x-2)^2}
+\]
+\end{solutionbox}
+
+\begin{friendlyex}{}
+The graph of a degree-$5$ polynomial is shown below. Determine its zeros, their multiplicities, and a possible formula for $f(x)$.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[xscale=1.1,yscale=0.4]
+\draw[-{Latex}] (-3.2,0) -- (2.6,0) node[right] {$x$};
+\draw[-{Latex}] (0,-5.5) -- (0,7) node[above] {$y$};
+\foreach \x in {-2,-1,1,2} \draw (\x,-0.25) -- (\x,0.25) node[below=4pt] {\tiny $\x$};
+\draw[thick, domain=-2.4:1.9, samples=90, smooth] plot (\x, {1/2*(\x+2)*(\x+2)*(\x-1)*(\x-1)*(\x-1)});
+\filldraw[pinkanno] (-2,0) circle (2pt);
+\filldraw[pinkanno] (1,0) circle (2pt);
+\filldraw[pinkanno] (0,-2) circle (2pt);
+\node[below] at (0.55,-2.4) {\small $(0,-2)$};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{friendlyex}
+
+\begin{solutionbox}
+The graph \textbf{bounces} at $x=-2$ (even multiplicity, take $2$) and \textbf{crosses} with a flattened S-shape at $x=1$ (odd multiplicity greater than $1$, take $3$). This accounts for degree $2+3=5$, matching the given degree.
+
+A possible formula:
+\[
+f(x)=a(x+2)^2(x-1)^3.
+\]
+
+Use the $y$-intercept $(0,-2)$ to find $a$:
+\[
+-2=a(4)(-1)=-4a \implies a=\frac12.
+\]
+
+\[
+\boxed{f(x)=\frac12(x+2)^2(x-1)^3}
+\]
+\end{solutionbox}
+
+\end{document}

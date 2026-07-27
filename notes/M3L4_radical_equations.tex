@@ -1,0 +1,275 @@
+\documentclass[12pt]{article}
+
+\usepackage{fontspec}
+\newfontfamily\handwriting{a-casual-handwritten-pen}[Path=../assets/fonts/,Extension=.ttf,Scale=1.5]
+\newfontfamily\comic{Comic Neue}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\usepackage{titlesec}
+\usepackage{multicol}
+\usepackage{environ}
+
+\usetikzlibrary{fit, positioning, arrows.meta, decorations.pathreplacing}
+
+% --- Custom Colors ---
+\definecolor{primaryblue}{RGB}{42, 111, 151}
+\definecolor{exbg}{RGB}{255, 240, 245}
+\definecolor{rulebg}{RGB}{232, 245, 233}
+\definecolor{highlight}{RGB}{255, 243, 176}
+\definecolor{pinkanno}{RGB}{255, 105, 180}
+\definecolor{purpleanno}{RGB}{147, 112, 219}
+\definecolor{solutionbg}{RGB}{245, 245, 255}
+
+% --- Header Styling ---
+\titleformat{\section}{\color{primaryblue}\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\color{primaryblue}\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+% --- Friendly Boxes ---
+% --- Auto-numbered Example Box ---
+\newcounter{examplenum}
+
+\newtcolorbox{friendlyexbox}[1]{
+    colback=exbg,
+    colframe=pinkanno!50,
+    arc=5pt,
+    title=\textbf{#1},
+    coltitle=black,
+    attach title to upper,
+    after title={:\quad}
+}
+
+\newenvironment{friendlyex}{%
+    \refstepcounter{examplenum}%
+    \begin{friendlyexbox}{Example \theexamplenum}%
+}{%
+    \end{friendlyexbox}%
+}
+
+\newtcolorbox{friendlyrule}[1]{
+    colback=rulebg,
+    colframe=primaryblue!30,
+    arc=5pt,
+    fonttitle=\bfseries,
+    title={#1},
+    coltitle=primaryblue
+}
+
+\newcommand{\funhl}[1]{\sethlcolor{highlight}\hl{#1}}
+
+% --- Show/Hide Solutions ---
+\newif\ifshowsolutions
+
+% Uncomment the next line to show solutions.
+\showsolutionstrue
+
+\newcommand{\solutionblank}{\vspace{25ex}}
+
+\NewEnviron{solutionbox}{
+\ifshowsolutions
+\begin{tcolorbox}[
+    colback=solutionbg,
+    colframe=purpleanno!45,
+    arc=5pt,
+    title={Solution},
+    coltitle=primaryblue,
+    fonttitle=\bfseries
+]
+\BODY
+\end{tcolorbox}
+\else
+\solutionblank
+\fi
+}
+
+\begin{document}
+\handwriting
+
+\begin{center}
+    \Large\textbf{\color{primaryblue}Module 3 Lesson 4\\Radical Equations} \\
+    \vspace{0.2cm}
+    \hrule
+\end{center}
+
+\section*{Objectives}
+
+\begin{friendlyrule}{In this lesson, we will learn how to}
+\begin{itemize}
+    \item solve equations involving radicals;
+    \item recognize and discard extraneous solutions;
+    \item apply radical equations to real-world formulas.
+\end{itemize}
+\end{friendlyrule}
+
+\section*{1. Radical Equations}
+
+\begin{friendlyrule}{Radical Equation}
+A \funhl{radical equation} is an equation in which the variable appears inside a radical, such as $\sqrt[n]{ax+b}=c$. The \funhl{radicand} is the expression under the radical, and $n$ is the \funhl{index}. Recall that $\sqrt[n]{x}=x^{1/n}$.
+\end{friendlyrule}
+
+\begin{friendlyrule}{How to Solve a Radical Equation}
+\begin{enumerate}
+    \item Isolate a radical on one side of the equation.
+    \item Raise both sides to a power that matches the radical's index (square both sides for a square root, cube both sides for a cube root, etc.).
+    \item If a radical remains, repeat steps $1$--$2$.
+    \item Solve the resulting equation.
+    \item Check every solution in the \textbf{original} equation.
+    \item Discard any \funhl{extraneous solutions}.
+\end{enumerate}
+\end{friendlyrule}
+
+\begin{friendlyrule}{Extraneous Solution}
+An \funhl{extraneous solution} is a value obtained algebraically (typically after squaring both sides) that does \textbf{not} satisfy the original equation. Squaring both sides can introduce solutions that were not there originally, so every solution must be checked.
+\end{friendlyrule}
+
+\section*{2. Solving Radical Equations}
+
+\begin{friendlyex}{}
+Solve $\sqrt{5-x}-3=0$.
+\end{friendlyex}
+
+\begin{solutionbox}
+\[
+\sqrt{5-x}=3 \implies 5-x=9 \implies x=-4.
+\]
+
+\textbf{Check:} $\sqrt{5-(-4)}-3=\sqrt{9}-3=3-3=0$. \checkmark
+
+\[
+\boxed{x=-4}
+\]
+\end{solutionbox}
+
+\begin{friendlyex}{}
+Solve $\sqrt{15-2x}=x$.
+\end{friendlyex}
+
+\begin{solutionbox}
+\[
+15-2x=x^2 \implies x^2+2x-15=0 \implies (x+5)(x-3)=0.
+\]
+\[
+x=-5 \text{ or } x=3.
+\]
+
+\textbf{Check } $x=-5$: $\sqrt{15-2(-5)}=\sqrt{25}=5$, but $x=-5$. Since $5\neq -5$, this is \textbf{extraneous}.
+
+\textbf{Check } $x=3$: $\sqrt{15-2(3)}=\sqrt{9}=3=x$. \checkmark
+
+\[
+\boxed{x=3}
+\]
+\end{solutionbox}
+
+\begin{friendlyex}{}
+Solve $\sqrt{x^2-2}-\sqrt{x+4}=0$.
+\end{friendlyex}
+
+\begin{solutionbox}
+\[
+\sqrt{x^2-2}=\sqrt{x+4} \implies x^2-2=x+4 \implies x^2-x-6=0.
+\]
+\[
+(x-3)(x+2)=0.
+\]
+
+So $x=3$ or $x=-2$.
+
+\textbf{Check } $x=3$: $\sqrt{9-2}=\sqrt7$ and $\sqrt{3+4}=\sqrt7$. \checkmark
+
+\textbf{Check } $x=-2$: $\sqrt{4-2}=\sqrt2$ and $\sqrt{-2+4}=\sqrt2$. \checkmark
+
+\[
+\boxed{x=3,\ x=-2}
+\]
+\end{solutionbox}
+
+\begin{friendlyex}{}
+Solve $\sqrt{3t+1}+\sqrt{5-t}=4$.
+\end{friendlyex}
+
+\begin{solutionbox}
+Isolate one radical: $\sqrt{3t+1}=4-\sqrt{5-t}$. Square both sides:
+\[
+3t+1=16-8\sqrt{5-t}+(5-t)=21-t-8\sqrt{5-t}.
+\]
+
+\[
+3t+1-21+t=-8\sqrt{5-t} \implies 4t-20=-8\sqrt{5-t}.
+\]
+\[
+t-5=-2\sqrt{5-t}.
+\]
+
+Multiply by $-1$: $5-t=2\sqrt{5-t}$. Let $u=\sqrt{5-t}$, so $5-t=u^2$:
+\[
+u^2=2u \implies u^2-2u=0 \implies u(u-2)=0.
+\]
+\[
+u=0 \text{ or } u=2.
+\]
+
+If $u=0$: $\sqrt{5-t}=0\implies t=5$.
+
+If $u=2$: $\sqrt{5-t}=2\implies 5-t=4\implies t=1$.
+
+\textbf{Check } $t=5$: $\sqrt{16}+\sqrt{0}=4+0=4$. \checkmark
+
+\textbf{Check } $t=1$: $\sqrt{4}+\sqrt{4}=2+2=4$. \checkmark
+
+\[
+\boxed{t=5,\ t=1}
+\]
+\end{solutionbox}
+
+\begin{friendlyex}{}
+Solve $4+\sqrt[3]{x-6}=2$.
+\end{friendlyex}
+
+\begin{solutionbox}
+\[
+\sqrt[3]{x-6}=-2 \implies x-6=(-2)^3=-8 \implies x=-2.
+\]
+
+\textbf{Check:} $4+\sqrt[3]{-2-6}=4+\sqrt[3]{-8}=4+(-2)=2$. \checkmark
+
+\[
+\boxed{x=-2}
+\]
+\end{solutionbox}
+
+\section*{3. An Application: Skid-Mark Speed}
+
+\begin{friendlyrule}{Skid-Mark Formula}
+The speed $v$ (in ft/sec) of a car that leaves a skid mark of length $d$ (in feet) on dry concrete satisfies
+\[
+v=k\sqrt{d}, \qquad k\approx 1.5.
+\]
+\end{friendlyrule}
+
+\begin{friendlyex}{}
+\begin{enumerate}[label=(\alph*)]
+    \item A car leaves a $54$-foot skid mark. Find its speed.
+    \item A car braking at $110$ ft/sec ($75$ mph) leaves a skid mark. Find the length of the skid mark.
+\end{enumerate}
+\end{friendlyex}
+
+\begin{solutionbox}
+\textbf{(a)} 
+\[
+v=1.5\sqrt{54}=1.5(3\sqrt6)=4.5\sqrt6\approx 11.02 \text{ ft/sec}.
+\]
+
+\textbf{(b)} Solve $110=1.5\sqrt{d}$ for $d$:
+\[
+\sqrt d=\frac{110}{1.5}=\frac{220}{3} \implies d=\left(\frac{220}{3}\right)^2=\frac{48400}{9}\approx 5377.8 \text{ ft}.
+\]
+\end{solutionbox}
+
+\end{document}

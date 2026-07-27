@@ -1,0 +1,298 @@
+\documentclass[12pt]{article}
+
+\usepackage{fontspec}
+\newfontfamily\handwriting{a-casual-handwritten-pen}[Path=../assets/fonts/,Extension=.ttf,Scale=1.5]
+\newfontfamily\comic{Comic Neue}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\usepackage{titlesec}
+\usepackage{multicol}
+\usepackage{environ}
+
+\usetikzlibrary{fit, positioning, arrows.meta, decorations.pathreplacing}
+
+% --- Custom Colors ---
+\definecolor{primaryblue}{RGB}{42, 111, 151}
+\definecolor{exbg}{RGB}{255, 240, 245}
+\definecolor{rulebg}{RGB}{232, 245, 233}
+\definecolor{highlight}{RGB}{255, 243, 176}
+\definecolor{pinkanno}{RGB}{255, 105, 180}
+\definecolor{purpleanno}{RGB}{147, 112, 219}
+\definecolor{solutionbg}{RGB}{245, 245, 255}
+
+% --- Header Styling ---
+\titleformat{\section}{\color{primaryblue}\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\color{primaryblue}\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+% --- Friendly Boxes ---
+% --- Auto-numbered Example Box ---
+\newcounter{examplenum}
+
+\newtcolorbox{friendlyexbox}[1]{
+    colback=exbg,
+    colframe=pinkanno!50,
+    arc=5pt,
+    title=\textbf{#1},
+    coltitle=black,
+    attach title to upper,
+    after title={:\quad}
+}
+
+\newenvironment{friendlyex}{%
+    \refstepcounter{examplenum}%
+    \begin{friendlyexbox}{Example \theexamplenum}%
+}{%
+    \end{friendlyexbox}%
+}
+
+\newtcolorbox{friendlyrule}[1]{
+    colback=rulebg,
+    colframe=primaryblue!30,
+    arc=5pt,
+    fonttitle=\bfseries,
+    title={#1},
+    coltitle=primaryblue
+}
+
+\newcommand{\funhl}[1]{\sethlcolor{highlight}\hl{#1}}
+
+% --- Show/Hide Solutions ---
+\newif\ifshowsolutions
+
+% Uncomment the next line to show solutions.
+\showsolutionstrue
+
+\newcommand{\solutionblank}{\vspace{25ex}}
+
+\NewEnviron{solutionbox}{
+\ifshowsolutions
+\begin{tcolorbox}[
+    colback=solutionbg,
+    colframe=purpleanno!45,
+    arc=5pt,
+    title={Solution},
+    coltitle=primaryblue,
+    fonttitle=\bfseries
+]
+\BODY
+\end{tcolorbox}
+\else
+\solutionblank
+\fi
+}
+
+\begin{document}
+\handwriting
+
+\begin{center}
+    \Large\textbf{\color{primaryblue}Module 3 Lesson 3\\Rational Functions} \\
+    \vspace{0.2cm}
+    \hrule
+\end{center}
+
+\section*{Objectives}
+
+\begin{friendlyrule}{In this lesson, we will learn how to}
+\begin{itemize}
+    \item find the domain of a rational function;
+    \item distinguish a vertical asymptote from a removable hole;
+    \item find horizontal asymptotes using the degree of the numerator and denominator;
+    \item find where a graph crosses its horizontal asymptote.
+\end{itemize}
+\end{friendlyrule}
+
+\section*{1. Domain of a Rational Function}
+
+\begin{friendlyrule}{Rational Function}
+A \funhl{rational function} has the form $f(x)=\dfrac{p(x)}{q(x)}$, where $p(x)$ and $q(x)$ are polynomials and $q(x)\neq 0$. The domain excludes every $x$ for which $q(x)=0$.
+\end{friendlyrule}
+
+\begin{friendlyex}{}
+Find the domain of each rational function.
+\begin{enumerate}[label=(\alph*)]
+    \item $f(x)=\dfrac{x+3}{x^2-9}$
+    \item $g(x)=\dfrac{2x}{x^2+x-6}$
+\end{enumerate}
+\end{friendlyex}
+
+\begin{solutionbox}
+\textbf{(a)} $x^2-9=(x-3)(x+3)=0 \implies x=3,-3$. Domain: all reals except $x=3,-3$, i.e.\ $\{x\mid x\neq \pm 3\}$.
+
+\textbf{(b)} $x^2+x-6=(x+3)(x-2)=0 \implies x=-3,2$. Domain: all reals except $x=-3,2$.
+\end{solutionbox}
+
+\section*{2. Vertical Asymptotes vs.\ Holes}
+
+\begin{friendlyrule}{Finding Vertical Asymptotes and Holes}
+Factor the numerator and denominator completely.
+\begin{itemize}
+    \item If a factor $(x-c)$ \funhl{cancels} from both numerator and denominator, the graph has a \funhl{hole} at $x=c$ (a single missing point).
+    \item If a factor $(x-c)$ remains in the denominator after cancelling, the graph has a \funhl{vertical asymptote} at $x=c$.
+\end{itemize}
+\end{friendlyrule}
+
+\begin{friendlyex}{}
+For each function, identify any holes and vertical asymptotes.
+\begin{enumerate}[label=(\alph*)]
+    \item $f(x)=\dfrac{x-2}{x^2-4}$
+    \item $g(x)=\dfrac{x+1}{x^2-1}$
+    \item $h(x)=\dfrac{x^2-4}{x^2+5x+6}$
+\end{enumerate}
+\end{friendlyex}
+
+\begin{solutionbox}
+\textbf{(a)} $f(x)=\dfrac{x-2}{(x-2)(x+2)}=\dfrac{1}{x+2}$ (for $x\neq 2$). \\
+Hole at $x=2$; vertical asymptote at $x=-2$.
+
+\textbf{(b)} $g(x)=\dfrac{x+1}{(x+1)(x-1)}=\dfrac{1}{x-1}$ (for $x\neq -1$). \\
+Hole at $x=-1$; vertical asymptote at $x=1$.
+
+\textbf{(c)} $h(x)=\dfrac{(x-2)(x+2)}{(x+2)(x+3)}=\dfrac{x-2}{x+3}$ (for $x\neq -2$). \\
+Hole at $x=-2$; vertical asymptote at $x=-3$.
+\end{solutionbox}
+
+\section*{3. Horizontal Asymptotes}
+
+\begin{friendlyrule}{Horizontal Asymptote Rules}
+Compare the degree of the numerator $n$ to the degree of the denominator $m$.
+\begin{itemize}
+    \item If $n<m$: horizontal asymptote is $y=0$.
+    \item If $n=m$: horizontal asymptote is $y=\dfrac{\text{leading coefficient of numerator}}{\text{leading coefficient of denominator}}$.
+    \item If $n>m$: there is \textbf{no} horizontal asymptote (the function may have a slant asymptote instead).
+\end{itemize}
+\end{friendlyrule}
+
+\section*{4. Reading Graphs of Rational Functions}
+
+\begin{friendlyex}{}
+The graph of $f(x)=\dfrac{3x}{x(x+2)(x-1)}$ is shown below. Identify the vertical asymptotes, the horizontal asymptote, and any holes.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[xscale=0.85,yscale=0.55]
+\draw[dashed, gray] (-2,-4.5) -- (-2,4.5);
+\draw[dashed, gray] (1,-4.5) -- (1,4.5);
+\draw[dashed, gray] (-4.3,0) -- (4.3,0);
+\draw[-{Latex}] (-4.3,0) -- (4.3,0) node[right] {\small $x$};
+\draw[-{Latex}] (0,-4.5) -- (0,4.5) node[above] {\small $y$};
+\begin{scope}
+\clip (-4.3,-4.3) rectangle (-2.08,4.3);
+\draw[teal, thick, domain=-4.2:-2.08, samples=60, smooth] plot (\x, {3/((\x+2)*(\x-1))});
+\end{scope}
+\begin{scope}
+\clip (-1.92,-4.3) rectangle (0.92,4.3);
+\draw[teal, thick, domain=-1.92:0.92, samples=80, smooth] plot (\x, {3/((\x+2)*(\x-1))});
+\end{scope}
+\begin{scope}
+\clip (1.08,-4.3) rectangle (4.3,4.3);
+\draw[teal, thick, domain=1.08:4.2, samples=60, smooth] plot (\x, {3/((\x+2)*(\x-1))});
+\end{scope}
+\draw[pinkanno, thick] (0,-1.5) circle (2.2pt);
+\node[below] at (-2,-4.6) {\small $x=-2$};
+\node[below] at (1,-4.6) {\small $x=1$};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{friendlyex}
+
+\begin{solutionbox}
+Simplify first: $f(x)=\dfrac{3x}{x(x+2)(x-1)}=\dfrac{3}{(x+2)(x-1)}$ for $x\neq 0$.
+
+\textbf{Vertical asymptotes:} $x=-2$ and $x=1$ (from the remaining denominator factors).
+
+\textbf{Hole:} at $x=0$ (the factor $x$ cancels). The hole's $y$-value: $\dfrac{3}{(0+2)(0-1)}=\dfrac{3}{-2}=-1.5$, so the hole is at $(0,-1.5)$ --- notice this means the graph has \textbf{no} $y$-intercept, even though $x=0$ looks like it should give one!
+
+\textbf{Horizontal asymptote:} numerator degree $0<$ denominator degree $2$ (after simplifying), so $y=0$.
+\end{solutionbox}
+
+\begin{friendlyex}{}
+The graph of $f(x)=\dfrac{2x^2}{x^2-4x+3}$ is shown below. Identify the vertical asymptotes, the horizontal asymptote, and the intercepts.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[xscale=0.85,yscale=0.4]
+\draw[dashed, gray] (1,-8.5) -- (1,8.5);
+\draw[dashed, gray] (3,-8.5) -- (3,8.5);
+\draw[dashed, gray] (-4.3,2) -- (5.3,2);
+\draw[-{Latex}] (-4.3,0) -- (5.3,0) node[right] {\small $x$};
+\draw[-{Latex}] (0,-8.5) -- (0,8.5) node[above] {\small $y$};
+\begin{scope}
+\clip (-4.3,-8.3) rectangle (0.92,8.3);
+\draw[teal, thick, domain=-4.2:0.92, samples=70, smooth] plot (\x, {2*\x*\x/(\x*\x-4*\x+3)});
+\end{scope}
+\begin{scope}
+\clip (1.08,-8.3) rectangle (2.92,8.3);
+\draw[teal, thick, domain=1.08:2.92, samples=80, smooth] plot (\x, {2*\x*\x/(\x*\x-4*\x+3)});
+\end{scope}
+\begin{scope}
+\clip (3.08,-8.3) rectangle (5.3,8.3);
+\draw[teal, thick, domain=3.08:5.2, samples=60, smooth] plot (\x, {2*\x*\x/(\x*\x-4*\x+3)});
+\end{scope}
+\filldraw[pinkanno] (0,0) circle (2.2pt);
+\node[below] at (1,-8.6) {\small $x=1$};
+\node[below] at (3,-8.6) {\small $x=3$};
+\node[right] at (5.3,2) {\small $y=2$};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{friendlyex}
+
+\begin{solutionbox}
+No common factors between $2x^2$ and $x^2-4x+3=(x-1)(x-3)$, so there are no holes.
+
+\textbf{Vertical asymptotes:} $x=1$ and $x=3$.
+
+\textbf{Horizontal asymptote:} numerator and denominator both degree $2$, ratio of leading coefficients $\dfrac{2}{1}=2$, so $y=2$.
+
+\textbf{Intercepts:} $f(0)=\dfrac{0}{3}=0$, so $(0,0)$ is both the $x$- and $y$-intercept. Since $2x^2$ has a double zero at $x=0$, the graph \textbf{touches} the $x$-axis at the origin rather than crossing it.
+\end{solutionbox}
+
+\section*{5. Crossing the Horizontal Asymptote}
+
+\begin{friendlyrule}{A Common Misconception}
+A graph can \textbf{never} cross a vertical asymptote, but it \textbf{can} cross a horizontal asymptote. To find where, set $f(x)$ equal to the horizontal asymptote's $y$-value and solve.
+\end{friendlyrule}
+
+\begin{friendlyex}{}
+Find the horizontal asymptote of $f(x)=\dfrac{x+3}{x^2+1}$, and determine where the graph crosses it.
+\end{friendlyex}
+
+\begin{solutionbox}
+Numerator degree $1<$ denominator degree $2$, so the horizontal asymptote is $y=0$.
+
+Set $f(x)=0$:
+\[
+\frac{x+3}{x^2+1}=0 \implies x+3=0 \implies x=-3.
+\]
+
+The graph crosses its horizontal asymptote at $\boxed{(-3,0)}$.
+\end{solutionbox}
+
+\begin{friendlyex}{}
+Find the horizontal asymptote of $g(x)=\dfrac{-2x^2+x-4}{x^2+1}$, and determine where the graph crosses it.
+\end{friendlyex}
+
+\begin{solutionbox}
+Numerator and denominator both degree $2$, ratio of leading coefficients $\dfrac{-2}{1}=-2$, so the horizontal asymptote is $y=-2$.
+
+Set $g(x)=-2$:
+\[
+\frac{-2x^2+x-4}{x^2+1}=-2 \implies -2x^2+x-4=-2(x^2+1)=-2x^2-2.
+\]
+
+The $-2x^2$ terms cancel:
+\[
+x-4=-2 \implies x=2.
+\]
+
+The graph crosses its horizontal asymptote at $\boxed{(2,-2)}$.
+\end{solutionbox}
+
+\end{document}
