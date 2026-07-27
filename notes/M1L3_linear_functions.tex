@@ -132,10 +132,10 @@ A positive slope rises from left to right; a negative slope falls from left to r
 \begin{center}
 \begin{tikzpicture}[scale=0.4]
 \draw[step=1, gray!40, very thin] (-9,-9) grid (10,10);
-\draw[-{Latex}] (-9,0) -- (10,0) node[right] {$x$};
-\draw[-{Latex}] (0,-9) -- (0,10) node[above] {$y$};
-\draw[green!55!black, line width=2pt, -{Latex}] (-8,-8) -- (8,9);
-\draw[orange, line width=2pt, -{Latex}] (-2,1) -- (7,-4);
+\draw[{Latex}-{Latex}] (-9,0) -- (10,0) node[right] {$x$};
+\draw[{Latex}-{Latex}] (0,-9) -- (0,10) node[above] {$y$};
+\draw[green!55!black, line width=2pt, {Latex}-{Latex}] (-8,-8) -- (8,9);
+\draw[orange, line width=2pt, {Latex}-{Latex}] (-2,1) -- (7,-4);
 \end{tikzpicture}
 \end{center}
 
@@ -280,11 +280,9 @@ On $[-1,1]$:
 
 \begin{friendlyrule}{Linear Function}
 A \funhl{linear function} is a function with a \textbf{constant} average rate of change. Its graph is a straight line, written in slope-intercept form as
-
 \[
 f(x)=mx+b,
 \]
-
 where $m$ is the rate of change and $b$ is the value of the function when $x=0$.
 \end{friendlyrule}
 
@@ -296,12 +294,16 @@ Determine which of the following relations represents a linear function.
 \text{(a)}\ x & 0 & 1 & 2 & 3 \\ \hline
 F(x) & 2.5 & 3 & 3.5 & 4
 \end{array}
-\qquad
+\]
+
+\[
 \begin{array}{c|cccc}
 \text{(b)}\ s & 0 & 2 & 4 & 6 \\ \hline
 g(s) & 100 & 90 & 70 & 40
 \end{array}
-\qquad
+\]
+
+\[
 \begin{array}{c|cccc}
 \text{(c)}\ t & 10 & 20 & 30 & 40 \\ \hline
 h(t) & 5.5 & 5 & 4.5 & 4
