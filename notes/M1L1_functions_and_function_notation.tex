@@ -115,16 +115,42 @@ A \funhl{relation} in $x$ and $y$ is a set of ordered pairs $(x,y)$.
 Given a relation in $x$ and $y$, we say that $y$ is a \funhl{function} of $x$ if for each value of $x$ in the domain, there is exactly one value of $y$ in the range.
 
 \begin{friendlyex}{Example 1}
-Consider the pairing
+Consider the domain and range
 
 \[
-(1,4),\qquad (2,6),\qquad (5,6),\qquad (7,-3),\qquad (5,10),
+\text{Domain}=\{1,2,5,7\}\qquad(\text{independent variables, }x\text{'s}),
 \]
 
-with
+\[
+\text{Range}=\{4,6,-3,10\}\qquad(\text{dependent variables, }y\text{'s}),
+\]
+
+paired as shown below:
+
+\begin{center}
+\begin{tikzpicture}[scale=1, every node/.style={font=\handwriting}]
+\node at (0,3.6) {Domain};
+\node at (4,3.6) {Range};
+\node (x1) at (0,3) {$1$};
+\node (x2) at (0,2) {$2$};
+\node (x3) at (0,1) {$5$};
+\node (x4) at (0,0) {$7$};
+\node (y1) at (4,3) {$4$};
+\node (y2) at (4,2) {$6$};
+\node (y3) at (4,1) {$-3$};
+\node (y4) at (4,0) {$10$};
+\draw[-{Latex}] (x1) -- (y1);
+\draw[-{Latex}] (x2) -- (y2);
+\draw[-{Latex}] (x3) -- (y2);
+\draw[-{Latex}] (x3) -- (y4);
+\draw[-{Latex}] (x4) -- (y3);
+\end{tikzpicture}
+\end{center}
+
+This gives the ordered pairs
 
 \[
-\text{domain}=\{1,2,5,7\},\qquad \text{range}=\{4,6,-3,10\}.
+(1,4),\qquad (2,6),\qquad (5,6),\qquad (7,-3),\qquad (5,10).
 \]
 
 Is this a function?
@@ -143,7 +169,7 @@ One $x$ cannot be paired with more than one $y$.
 
 Therefore, this relation is \textbf{not} a function.
 
-\emph{Note:} it is perfectly fine for one $y$-value to be paired with more than one $x$-value.
+\emph{Note:} it is perfectly fine for one $y$-value to be paired with more than one $x$-value --- notice $6$ is paired with both $2$ and $5$ above, and that alone does not break the function rule.
 \end{solutionbox}
 
   
@@ -175,14 +201,40 @@ A graph represents a function if and only if no vertical line intersects the gra
 \end{friendlyrule}
 
 \begin{friendlyex}{Example 3}
-Which of the following graphs represent functions?
+Does each graph below represent a function?
 
-\begin{itemize}
-    \item[(a)] An upward-opening parabola (a ``$U$'' shape).
-    \item[(b)] A sideways-opening parabola (a ``$\subset$'' shape, opening left).
-    \item[(c)] A wave-like curve (one $y$-value for every $x$).
-    \item[(d)] A circle.
-\end{itemize}
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+% panel (a): upward parabola -- function
+\begin{scope}[shift={(0,0)}]
+\draw[-{Latex}] (-2.2,0) -- (2.2,0);
+\draw[-{Latex}] (0,-2) -- (0,2.4);
+\draw[blue, thick, domain=-1.8:1.8, samples=50, smooth] plot (\x, {0.7*\x*\x - 1.4});
+\node at (0,-2.8) {(a)};
+\end{scope}
+% panel (b): sideways parabola -- not a function
+\begin{scope}[shift={(6,0)}]
+\draw[-{Latex}] (-2.2,0) -- (2.2,0);
+\draw[-{Latex}] (0,-2) -- (0,2.4);
+\draw[green!55!black, thick, domain=-1.8:1.8, samples=50, smooth] plot ({1.4 - 0.7*\x*\x}, \x);
+\node at (0,-2.8) {(b)};
+\end{scope}
+% panel (c): wave -- function
+\begin{scope}[shift={(0,-6)}]
+\draw[-{Latex}] (-2.2,0) -- (2.2,0);
+\draw[-{Latex}] (0,-2) -- (0,2.4);
+\draw[red, thick, domain=-180:150, samples=60, smooth] plot ({\x/57.3}, {1.4*sin(\x)});
+\node at (0,-2.8) {(c)};
+\end{scope}
+% panel (d): circle -- not a function
+\begin{scope}[shift={(6,-6)}]
+\draw[-{Latex}] (-2.2,0) -- (2.2,0);
+\draw[-{Latex}] (0,-2) -- (0,2.4);
+\draw[violet, thick] (0,0) circle (1.4);
+\node at (0,-2.8) {(d)};
+\end{scope}
+\end{tikzpicture}
+\end{center}
 \end{friendlyex}
 
  
@@ -274,15 +326,17 @@ so the $y$-intercept is $(0,-25)$.
 
   
 
-\section*{5. Evaluating Functions}
+\section*{5. Function Notation: Naming the Rule}
 
 One of the most common ways to represent a function is by a formula or rule. For example,
 
 \[
-f(x)=x^2+1
+f(x)=x^2+1\qquad\text{or}\qquad y=x^2+1.
 \]
 
-has name $f$. Its rule says: ``to find the number paired with $x$, square $x$ and add $1$.''
+The function's name is $f$. Its rule says: ``to find the number that $x$ is paired with, you square $x$ and then add $1$ to the result.''
+
+\section*{6. Evaluating Functions}
 
 \begin{friendlyex}{Example 6}
 Evaluate each function at the given input.
@@ -327,7 +381,7 @@ Since we cannot divide by zero, $r(-2)$ is \textbf{undefined}. (This is a previe
 
   
 
-\section*{6. More Practice with Function Notation}
+\section*{7. More Practice with Function Notation}
 
 \begin{friendlyex}{Example 7}
 Given the table representing a function $f$,
@@ -425,7 +479,7 @@ t=4\text{ seconds.}
 \begin{friendlyrule}{Key Ideas}
 \begin{itemize}
     \item A relation is a set of ordered pairs $(x,y)$; its domain is the set of $x$-values and its range is the set of $y$-values.
-    \item A relation is a function if every $x$-value in the domain corresponds to exactly one $y$-value.
+    \item A relation is a function if every $x$-value in the domain corresponds to exactly one $y$-value. It is fine for a $y$-value to repeat.
     \item The vertical line test: a graph is a function if and only if no vertical line crosses it more than once.
     \item The $x$-intercepts of $y=f(x)$ solve $f(x)=0$; the $y$-intercept is $f(0)$.
     \item To evaluate a function, substitute the given input for the variable and simplify.
