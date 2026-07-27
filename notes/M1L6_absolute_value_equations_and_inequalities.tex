@@ -1,0 +1,309 @@
+\documentclass[12pt]{article}
+
+\usepackage{fontspec}
+\newfontfamily\handwriting{a-casual-handwritten-pen}[Path=../assets/fonts/,Extension=.ttf,Scale=1.5]
+\newfontfamily\comic{Comic Neue}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\usepackage{titlesec}
+\usepackage{multicol}
+\usepackage{environ}
+
+\usetikzlibrary{fit, positioning, arrows.meta}
+
+% --- Custom Colors ---
+\definecolor{primaryblue}{RGB}{42, 111, 151}
+\definecolor{exbg}{RGB}{255, 240, 245}
+\definecolor{rulebg}{RGB}{232, 245, 233}
+\definecolor{highlight}{RGB}{255, 243, 176}
+\definecolor{pinkanno}{RGB}{255, 105, 180}
+\definecolor{purpleanno}{RGB}{147, 112, 219}
+\definecolor{solutionbg}{RGB}{245, 245, 255}
+
+% --- Header Styling ---
+\titleformat{\section}{\color{primaryblue}\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\color{primaryblue}\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+% --- Friendly Boxes ---
+\newtcolorbox{friendlyex}[1]{
+    colback=exbg,
+    colframe=pinkanno!50,
+    arc=5pt,
+    title=\textbf{#1},
+    coltitle=black,
+    attach title to upper,
+    after title={:\quad}
+}
+
+\newtcolorbox{friendlyrule}[1]{
+    colback=rulebg,
+    colframe=primaryblue!30,
+    arc=5pt,
+    fonttitle=\bfseries,
+    title={#1},
+    coltitle=primaryblue
+}
+
+\newcommand{\funhl}[1]{\sethlcolor{highlight}\hl{#1}}
+
+% --- Show/Hide Solutions ---
+\newif\ifshowsolutions
+
+% Uncomment the next line to show solutions.
+\showsolutionstrue
+
+\newcommand{\solutionblank}{\vspace{25ex}}
+
+\NewEnviron{solutionbox}{
+\ifshowsolutions
+\begin{tcolorbox}[
+    colback=solutionbg,
+    colframe=purpleanno!45,
+    arc=5pt,
+    title={Solution},
+    coltitle=primaryblue,
+    fonttitle=\bfseries
+]
+\BODY
+\end{tcolorbox}
+\else
+\solutionblank
+\fi
+}
+
+\begin{document}
+\handwriting
+
+\begin{center}
+    \Large\textbf{\color{primaryblue}Module 1 Lesson 6\\Absolute Value Equations and Inequalities} \\
+    \vspace{0.2cm}
+    \hrule
+\end{center}
+
+\section*{Objectives}
+
+\begin{friendlyrule}{In this lesson, we will learn how to}
+\begin{itemize}
+    \item define absolute value as distance from zero;
+    \item solve absolute value equations;
+    \item solve absolute value inequalities;
+    \item apply absolute value to real-world tolerance problems.
+\end{itemize}
+\end{friendlyrule}
+
+\section*{1. Absolute Value}
+
+\begin{friendlyrule}{Absolute Value}
+The \funhl{absolute value} of a real number $x$ is its distance from zero, denoted $|x|$. For example,
+
+\[
+|5|=5,\qquad |-5|=5.
+\]
+\end{friendlyrule}
+
+\section*{2. Absolute Value Equations}
+
+\begin{friendlyrule}{Solving $|X|=a$}
+For $a>0$ and an algebraic expression $X$,
+
+\[
+|X|=a\quad\text{is equivalent to}\quad X=-a\ \ \text{or}\ \ X=a.
+\]
+
+For example, if $|x|=5$, then $x=-5$ or $x=5$.
+\end{friendlyrule}
+
+\begin{friendlyex}{Example 1}
+Solve each absolute value equation.
+
+\begin{itemize}
+    \item[(a)] $8|x-3|=4$
+    \item[(b)] $|3x-6|+5=3$
+    \item[(c)] $5-|x+2|=3$
+\end{itemize}
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+\textbf{(a)} Divide both sides by $8$:
+
+\[
+|x-3|=\frac12.
+\]
+
+\[
+x-3=\frac12\quad\text{or}\quad x-3=-\frac12.
+\]
+
+\[
+x=\frac72\quad\text{or}\quad x=\frac52.
+\]
+
+\textbf{(b)} Isolate the absolute value:
+
+\[
+|3x-6|=3-5=-2.
+\]
+
+An absolute value can never equal a negative number, so there is \textbf{no solution}.
+
+\textbf{(c)} Isolate the absolute value:
+
+\[
+-|x+2|=3-5=-2\ \Longrightarrow\ |x+2|=2.
+\]
+
+\[
+x+2=2\quad\text{or}\quad x+2=-2.
+\]
+
+\[
+x=0\quad\text{or}\quad x=-4.
+\]
+\end{solutionbox}
+
+  
+
+\section*{3. Absolute Value Inequalities}
+
+\begin{friendlyrule}{Solving Absolute Value Inequalities}
+For $a>0$ and an algebraic expression $X$:
+
+\[
+|X|<a\quad\text{is equivalent to}\quad -a<X<a.
+\]
+
+\[
+|X|>a\quad\text{is equivalent to}\quad X<-a\ \ \text{or}\ \ X>a.
+\]
+\end{friendlyrule}
+
+\begin{friendlyex}{Example 2}
+Solve, and write the solution in interval notation.
+
+\begin{itemize}
+    \item[(a)] $|4x|<12$
+    \item[(b)] $|5x+1|<8$
+    \item[(c)] $|5x+1|>8$
+\end{itemize}
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+\textbf{(a)}
+
+\[
+-12<4x<12.
+\]
+
+\[
+-3<x<3.
+\]
+
+Interval notation: $(-3,3)$.
+
+\textbf{(b)}
+
+\[
+-8<5x+1<8.
+\]
+
+\[
+-9<5x<7.
+\]
+
+\[
+-\frac95<x<\frac75.
+\]
+
+Interval notation: $\left(-\dfrac95,\dfrac75\right)$.
+
+\textbf{(c)}
+
+\[
+5x+1<-8\quad\text{or}\quad 5x+1>8.
+\]
+
+\[
+5x<-9\quad\text{or}\quad 5x>7.
+\]
+
+\[
+x<-\frac95\quad\text{or}\quad x>\frac75.
+\]
+
+Interval notation: $\left(-\infty,-\dfrac95\right)\cup\left(\dfrac75,\infty\right)$.
+\end{solutionbox}
+
+  
+
+\section*{4. Applications}
+
+\begin{friendlyex}{Example 3}
+\begin{itemize}
+    \item[(a)] Suppose you want your room temperature to stay within $4$ degrees of $70^\circ$F. Determine the temperature range using an absolute value inequality.
+    \item[(b)] A machine is designed to produce metal rods that are $10$ cm long, with a maximum allowable error of $0.03$ cm. Write and solve an absolute value inequality to determine the acceptable rod lengths.
+\end{itemize}
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+\textbf{(a)} Let $T$ be the temperature. We need
+
+\[
+|T-70|\le 4.
+\]
+
+\[
+-4\le T-70\le 4.
+\]
+
+\[
+66\le T\le 74.
+\]
+
+The acceptable temperature range is $66^\circ$F to $74^\circ$F.
+
+\textbf{(b)} Let $L$ be the length of the rod. We need
+
+\[
+|L-10|\le 0.03.
+\]
+
+\[
+-0.03\le L-10\le 0.03.
+\]
+
+\[
+9.97\le L\le 10.03.
+\]
+
+The acceptable rod lengths are between $9.97$ cm and $10.03$ cm.
+\end{solutionbox}
+
+  
+
+\section*{Summary}
+
+\begin{friendlyrule}{Key Ideas}
+\begin{itemize}
+    \item $|x|$ measures the distance of $x$ from $0$ on the number line, and is always $\ge 0$.
+    \item $|X|=a$ (for $a>0$) splits into two cases: $X=a$ or $X=-a$.
+    \item If isolating the absolute value produces a negative number on the other side, the equation has no solution.
+    \item $|X|<a$ becomes a ``between'' (double) inequality: $-a<X<a$.
+    \item $|X|>a$ splits into an ``or'' compound inequality: $X<-a$ or $X>a$.
+    \item Absolute value inequalities are natural for describing tolerances and acceptable ranges.
+\end{itemize}
+\end{friendlyrule}
+
+\end{document}

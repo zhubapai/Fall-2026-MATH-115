@@ -1,0 +1,303 @@
+\documentclass[12pt]{article}
+
+\usepackage{fontspec}
+\newfontfamily\handwriting{a-casual-handwritten-pen}[Path=../assets/fonts/,Extension=.ttf,Scale=1.5]
+\newfontfamily\comic{Comic Neue}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\usepackage{titlesec}
+\usepackage{multicol}
+\usepackage{environ}
+
+\usetikzlibrary{fit, positioning, arrows.meta}
+
+% --- Custom Colors ---
+\definecolor{primaryblue}{RGB}{42, 111, 151}
+\definecolor{exbg}{RGB}{255, 240, 245}
+\definecolor{rulebg}{RGB}{232, 245, 233}
+\definecolor{highlight}{RGB}{255, 243, 176}
+\definecolor{pinkanno}{RGB}{255, 105, 180}
+\definecolor{purpleanno}{RGB}{147, 112, 219}
+\definecolor{solutionbg}{RGB}{245, 245, 255}
+
+% --- Header Styling ---
+\titleformat{\section}{\color{primaryblue}\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\color{primaryblue}\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+% --- Friendly Boxes ---
+\newtcolorbox{friendlyex}[1]{
+    colback=exbg,
+    colframe=pinkanno!50,
+    arc=5pt,
+    title=\textbf{#1},
+    coltitle=black,
+    attach title to upper,
+    after title={:\quad}
+}
+
+\newtcolorbox{friendlyrule}[1]{
+    colback=rulebg,
+    colframe=primaryblue!30,
+    arc=5pt,
+    fonttitle=\bfseries,
+    title={#1},
+    coltitle=primaryblue
+}
+
+\newcommand{\funhl}[1]{\sethlcolor{highlight}\hl{#1}}
+
+% --- Show/Hide Solutions ---
+\newif\ifshowsolutions
+
+% Uncomment the next line to show solutions.
+\showsolutionstrue
+
+\newcommand{\solutionblank}{\vspace{25ex}}
+
+\NewEnviron{solutionbox}{
+\ifshowsolutions
+\begin{tcolorbox}[
+    colback=solutionbg,
+    colframe=purpleanno!45,
+    arc=5pt,
+    title={Solution},
+    coltitle=primaryblue,
+    fonttitle=\bfseries
+]
+\BODY
+\end{tcolorbox}
+\else
+\solutionblank
+\fi
+}
+
+\begin{document}
+\handwriting
+
+\begin{center}
+    \Large\textbf{\color{primaryblue}Module 1 Lesson 2\\Domain and Range} \\
+    \vspace{0.2cm}
+    \hrule
+\end{center}
+
+\section*{Objectives}
+
+\begin{friendlyrule}{In this lesson, we will learn how to}
+\begin{itemize}
+    \item read and write interval notation;
+    \item determine the domain of a function algebraically;
+    \item determine the domain and range of a function from its graph.
+\end{itemize}
+\end{friendlyrule}
+
+\section*{1. Interval Notation}
+
+\funhl{Interval notation} is a shorthand for describing a set of real numbers using inequalities.
+
+\begin{friendlyrule}{Interval Notation}
+\begin{center}
+\begin{tabular}{lll}
+Inequality & Interval notation & \\ \hline
+$a<x<b$ & $(a,b)$ & open on both ends \\
+$a\le x\le b$ & $[a,b]$ & closed on both ends \\
+$a\le x<b$ & $[a,b)$ & closed at $a$, open at $b$ \\
+$a<x\le b$ & $(a,b]$ & open at $a$, closed at $b$ \\
+$a<x$ & $(a,\infty)$ & \\
+$a\le x$ & $[a,\infty)$ & \\
+$x<b$ & $(-\infty,b)$ & \\
+$x\le b$ & $(-\infty,b]$ &
+\end{tabular}
+\end{center}
+
+A parenthesis means the endpoint is \emph{not} included; a bracket means the endpoint \emph{is} included. Infinity always gets a parenthesis, since it is not a number that can be ``reached.''
+\end{friendlyrule}
+
+\section*{2. Domain of a Function}
+
+\begin{friendlyrule}{Domain}
+The \funhl{domain} of a function is the complete set of input values ($x$-values) for which the function is defined and produces a real number output. Common restrictions include:
+\begin{itemize}
+    \item[(a)] avoiding division by zero in rational functions;
+    \item[(b)] avoiding negative values under square roots.
+\end{itemize}
+\end{friendlyrule}
+
+\begin{friendlyex}{Example 1}
+Determine the domain of each function.
+
+(Clue: is there any value that $x$ cannot be?)
+
+\begin{itemize}
+    \item[(i)] $f(x)=3x^2+2x-1$
+    \item[(ii)] $g(x)=\dfrac{5}{x-3}$
+    \item[(iii)] $k(x)=\sqrt{3x-12}$
+    \item[(iv)] $h(x)=\dfrac{2x}{x^2-x-6}$
+\end{itemize}
+
+Challenging one:
+
+\[
+h(x)=\frac{3}{\sqrt{2x-5}}.
+\]
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+\textbf{(i)} $f$ is a polynomial, so there are no restrictions on $x$. The domain is
+
+\[
+(-\infty,\infty).
+\]
+
+\textbf{(ii)} We need $x-3\neq 0$, i.e., $x\neq 3$. The domain is
+
+\[
+(-\infty,3)\cup(3,\infty).
+\]
+
+\textbf{(iii)} We need $3x-12\ge 0$, i.e., $x\ge 4$. The domain is
+
+\[
+[4,\infty).
+\]
+
+\textbf{(iv)} Factor the denominator:
+
+\[
+x^2-x-6=(x-3)(x+2).
+\]
+
+We need $x\neq 3$ and $x\neq -2$. The domain is
+
+\[
+(-\infty,-2)\cup(-2,3)\cup(3,\infty).
+\]
+
+\textbf{Challenging one:} Since the square root is in the denominator, we need the radicand to be \emph{strictly} positive:
+
+\[
+2x-5>0\ \Longrightarrow\ x>\frac52.
+\]
+
+The domain is
+
+\[
+\left(\frac52,\infty\right).
+\]
+\end{solutionbox}
+
+  
+
+\section*{3. Range of a Function}
+
+\begin{friendlyrule}{Range}
+The \funhl{range} is the complete set of output values ($y$-values) generated by applying the function to the inputs in the domain.
+\end{friendlyrule}
+
+\begin{friendlyex}{Example 2}
+Determine the domain and range of a function whose graph has a vertical asymptote at $x=3$ and a horizontal asymptote at $y=1$.
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+The graph never touches the vertical line $x=3$, so $3$ is excluded from the domain:
+
+\[
+\text{domain}=(-\infty,3)\cup(3,\infty).
+\]
+
+The graph gets arbitrarily close to $y=1$ but never reaches it, so $1$ is excluded from the range:
+
+\[
+\text{range}=(-\infty,1)\cup(1,\infty).
+\]
+\end{solutionbox}
+
+  
+
+\begin{friendlyex}{Example 3}
+Use the pictured function $f$ to find:
+
+\begin{multicols}{2}
+\begin{enumerate}[label=(\alph*)]
+    \item $f(2)$
+    \item $f(1)$
+    \item all $x$ for which $f(x)=2$
+    \item all $x$ for which $f(x)=-1$
+    \item the $x$-intercept(s)
+    \item the $y$-intercept
+    \item the domain of $f$
+    \item the range of $f$
+\end{enumerate}
+\end{multicols}
+
+The graph consists of: an open circle at $(-3,4)$ connected by a line segment down to $(-2,2)$; a horizontal segment from $(-2,2)$ to $(1,2)$; and a decreasing line segment starting at $(1,2)$, passing through $(3,0)$, and continuing (with an arrow) indefinitely to the lower right.
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+From $(-3,4)$ (open) to $(-2,2)$, the piece has slope
+
+\[
+\frac{2-4}{-2-(-3)}=\frac{-2}{1}=-2,
+\]
+
+so this piece is $f(x)=-2x-2$.
+
+From $(1,2)$ onward, the piece has slope
+
+\[
+\frac{0-2}{3-1}=\frac{-2}{2}=-1,
+\]
+
+so this piece is $f(x)=-x+3$.
+
+\textbf{(a)} $x=2$ is on the decreasing piece: $f(2)=-(2)+3=1$.
+
+\textbf{(b)} $x=1$ is on the flat piece: $f(1)=2$.
+
+\textbf{(c)} $f(x)=2$ for every $x$ on the flat segment: $x\in[-2,1]$.
+
+\textbf{(d)} On the decreasing piece, $-x+3=-1$ gives $x=4$.
+
+\textbf{(e)} The graph crosses the $x$-axis where $-x+3=0$, i.e., at $(3,0)$.
+
+\textbf{(f)} $x=0$ is on the flat piece, so the $y$-intercept is $(0,2)$.
+
+\textbf{(g)} The graph starts (excluding) at $x=-3$ and continues without bound to the right:
+
+\[
+\text{domain}=(-3,\infty).
+\]
+
+\textbf{(h)} The largest $y$-value approached (but not attained) is $4$; the graph decreases without bound to the right:
+
+\[
+\text{range}=(-\infty,4).
+\]
+\end{solutionbox}
+
+  
+
+\section*{Summary}
+
+\begin{friendlyrule}{Key Ideas}
+\begin{itemize}
+    \item Interval notation uses parentheses for excluded endpoints and brackets for included endpoints; $\infty$ always gets a parenthesis.
+    \item The domain of a function excludes values that cause division by zero or a negative number under a square root.
+    \item The range is the set of all output values the function actually produces.
+    \item Domain and range can often be read directly from a graph by looking at its horizontal and vertical extent.
+\end{itemize}
+\end{friendlyrule}
+
+\end{document}

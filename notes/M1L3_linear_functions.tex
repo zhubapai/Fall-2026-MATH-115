@@ -1,0 +1,420 @@
+\documentclass[12pt]{article}
+
+\usepackage{fontspec}
+\newfontfamily\handwriting{a-casual-handwritten-pen}[Path=../assets/fonts/,Extension=.ttf,Scale=1.5]
+\newfontfamily\comic{Comic Neue}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\usepackage{titlesec}
+\usepackage{multicol}
+\usepackage{environ}
+
+\usetikzlibrary{fit, positioning, arrows.meta}
+
+% --- Custom Colors ---
+\definecolor{primaryblue}{RGB}{42, 111, 151}
+\definecolor{exbg}{RGB}{255, 240, 245}
+\definecolor{rulebg}{RGB}{232, 245, 233}
+\definecolor{highlight}{RGB}{255, 243, 176}
+\definecolor{pinkanno}{RGB}{255, 105, 180}
+\definecolor{purpleanno}{RGB}{147, 112, 219}
+\definecolor{solutionbg}{RGB}{245, 245, 255}
+
+% --- Header Styling ---
+\titleformat{\section}{\color{primaryblue}\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\color{primaryblue}\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+% --- Friendly Boxes ---
+\newtcolorbox{friendlyex}[1]{
+    colback=exbg,
+    colframe=pinkanno!50,
+    arc=5pt,
+    title=\textbf{#1},
+    coltitle=black,
+    attach title to upper,
+    after title={:\quad}
+}
+
+\newtcolorbox{friendlyrule}[1]{
+    colback=rulebg,
+    colframe=primaryblue!30,
+    arc=5pt,
+    fonttitle=\bfseries,
+    title={#1},
+    coltitle=primaryblue
+}
+
+\newcommand{\funhl}[1]{\sethlcolor{highlight}\hl{#1}}
+
+% --- Show/Hide Solutions ---
+\newif\ifshowsolutions
+
+% Uncomment the next line to show solutions.
+\showsolutionstrue
+
+\newcommand{\solutionblank}{\vspace{25ex}}
+
+\NewEnviron{solutionbox}{
+\ifshowsolutions
+\begin{tcolorbox}[
+    colback=solutionbg,
+    colframe=purpleanno!45,
+    arc=5pt,
+    title={Solution},
+    coltitle=primaryblue,
+    fonttitle=\bfseries
+]
+\BODY
+\end{tcolorbox}
+\else
+\solutionblank
+\fi
+}
+
+\begin{document}
+\handwriting
+
+\begin{center}
+    \Large\textbf{\color{primaryblue}Module 1 Lesson 3\\Linear Functions} \\
+    \vspace{0.2cm}
+    \hrule
+\end{center}
+
+\section*{Objectives}
+
+\begin{friendlyrule}{In this lesson, we will learn how to}
+\begin{itemize}
+    \item compute the slope of a line through two points;
+    \item write and graph a line in slope-intercept form;
+    \item compute the average rate of change of a function;
+    \item recognize and apply linear functions to model real situations.
+\end{itemize}
+\end{friendlyrule}
+
+\section*{1. Slope of a Line}
+
+\begin{friendlyrule}{Slope}
+\[
+m=\frac{\text{rise}}{\text{run}}=\frac{\text{the change in }y}{\text{the change in }x}=\frac{y_2-y_1}{x_2-x_1}.
+\]
+\end{friendlyrule}
+
+\begin{friendlyex}{Example 1}
+Find the slope of the line through each pair of points.
+
+\begin{itemize}
+    \item[(1)] $(4,3)$ and $(-2,15)$
+    \item[(2)] $(6,-3)$ and $(-2,-3)$
+    \item[(3)] $(3,-2)$ and $(3,6)$
+\end{itemize}
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+\textbf{(1)}
+
+\[
+m=\frac{15-3}{-2-4}=\frac{12}{-6}=-2.
+\]
+
+\textbf{(2)}
+
+\[
+m=\frac{-3-(-3)}{-2-6}=\frac{0}{-8}=0.
+\]
+
+This is a horizontal line.
+
+\textbf{(3)}
+
+\[
+m=\frac{6-(-2)}{3-3}=\frac{8}{0},
+\]
+
+which is \textbf{undefined}. This is a vertical line.
+\end{solutionbox}
+
+  
+
+\section*{2. Slope-Intercept Form}
+
+\begin{friendlyrule}{Slope-Intercept Form}
+A line can be represented by an equation of the form
+
+\[
+y=mx+b,
+\]
+
+where $m$ is the slope and $b$ is the $y$-intercept of the line.
+\end{friendlyrule}
+
+For example, the line $y=\dfrac23 x+4$ has slope $\dfrac23$ and $y$-intercept $(0,4)$.
+
+\begin{friendlyex}{Example 2}
+\begin{itemize}
+    \item[(1)] Given the equation $3x+2y=6$, write the equation in slope-intercept form, and determine the slope and $y$-intercept.
+    \item[(2)] Write an equation of a line in slope-intercept form given a point $(2,-4)$ and slope $m=-3$.
+\end{itemize}
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+\textbf{(1)} Solve for $y$:
+
+\[
+3x+2y=6.
+\]
+
+\[
+2y=-3x+6.
+\]
+
+\[
+y=-\frac32 x+3.
+\]
+
+The slope is $-\dfrac32$ and the $y$-intercept is $(0,3)$.
+
+\textbf{(2)} Use point-slope form:
+
+\[
+y-(-4)=-3(x-2).
+\]
+
+\[
+y+4=-3x+6.
+\]
+
+\[
+y=-3x+2.
+\]
+\end{solutionbox}
+
+  
+
+\section*{3. Average Rate of Change}
+
+\begin{friendlyrule}{Average Rate of Change (AROC)}
+The average rate of change of a function over an interval measures the average speed at which the output changes relative to the input.
+
+\[
+\text{AROC on }[x_1,x_2]=\frac{f(x_2)-f(x_1)}{x_2-x_1}.
+\]
+\end{friendlyrule}
+
+\begin{friendlyex}{Example 3}
+Given $f(x)=x^2+2$, find the average rate of change on $[1,3]$ and on $[-1,1]$.
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+On $[1,3]$:
+
+\[
+\text{AROC}=\frac{f(3)-f(1)}{3-1}=\frac{(9+2)-(1+2)}{2}=\frac{11-3}{2}=4.
+\]
+
+On $[-1,1]$:
+
+\[
+\text{AROC}=\frac{f(1)-f(-1)}{1-(-1)}=\frac{(1+2)-(1+2)}{2}=\frac{0}{2}=0.
+\]
+\end{solutionbox}
+
+  
+
+\section*{4. Linear Functions}
+
+\begin{friendlyrule}{Linear Function}
+A \funhl{linear function} is a function with a \textbf{constant} average rate of change. Its graph is a straight line, written in slope-intercept form as
+
+\[
+f(x)=mx+b,
+\]
+
+where $m$ is the rate of change and $b$ is the value of the function when $x=0$.
+\end{friendlyrule}
+
+\begin{friendlyex}{Example 4}
+Determine which of the following relations represents a linear function.
+
+\[
+\begin{array}{c|cccc}
+\text{(a)}\ x & 0 & 1 & 2 & 3 \\ \hline
+F(x) & 2.5 & 3 & 3.5 & 4
+\end{array}
+\qquad
+\begin{array}{c|cccc}
+\text{(b)}\ s & 0 & 2 & 4 & 6 \\ \hline
+g(s) & 100 & 90 & 70 & 40
+\end{array}
+\qquad
+\begin{array}{c|cccc}
+\text{(c)}\ t & 10 & 20 & 30 & 40 \\ \hline
+h(t) & 5.5 & 5 & 4.5 & 4
+\end{array}
+\]
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+\textbf{(a)} Each step in $x$ increases $F(x)$ by exactly $0.5$. The rate of change is constant, so this \textbf{is} linear.
+
+\textbf{(b)} The changes in $g$ are $-10,-20,-30$ for equal steps of $2$ in $s$, giving rates $-5,-10,-15$. The rate is \textbf{not} constant, so this is \textbf{not} linear.
+
+\textbf{(c)} Each step of $10$ in $t$ decreases $h(t)$ by exactly $0.5$. The rate of change is constant, so this \textbf{is} linear.
+\end{solutionbox}
+
+  
+
+\section*{5. Applications of Linear Functions}
+
+\begin{friendlyex}{Example 5}
+A city's population was $30{,}700$ in the year 2000 and is growing by $850$ people a year.
+
+\begin{itemize}
+    \item[(a)] Give a formula for the population $P$ as a function of the number of years $t$ since 2000.
+    \item[(b)] What is the population predicted to be in 2012?
+    \item[(c)] When is the population expected to reach $45{,}000$?
+\end{itemize}
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+\textbf{(a)}
+
+\[
+P(t)=30{,}700+850t.
+\]
+
+\textbf{(b)} $2012$ corresponds to $t=12$:
+
+\[
+P(12)=30{,}700+850(12)=30{,}700+10{,}200=40{,}900.
+\]
+
+\textbf{(c)} Set $P(t)=45{,}000$:
+
+\[
+45{,}000=30{,}700+850t.
+\]
+
+\[
+14{,}300=850t.
+\]
+
+\[
+t\approx 16.8.
+\]
+
+The population is expected to reach $45{,}000$ about $16.8$ years after 2000, i.e., around the year 2017.
+\end{solutionbox}
+
+  
+
+\begin{friendlyex}{Example 6}
+Annual revenue $R$ (in billions of dollars) from a restaurant chain worldwide can be estimated by
+
+\[
+R=19.1+1.8t,
+\]
+
+where $t$ is the number of years since January 1, 2005.
+
+\begin{itemize}
+    \item[(a)] What is the slope of this function? Interpret it.
+    \item[(b)] What is the vertical intercept? Interpret it.
+    \item[(c)] What annual revenue does the function predict for 2012?
+    \item[(d)] When is annual revenue predicted to hit $35$ billion dollars?
+\end{itemize}
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+\textbf{(a)} The slope is $1.8$ billion dollars per year: revenue increases by about $\$1.8$ billion each year.
+
+\textbf{(b)} The vertical intercept is $19.1$ billion dollars (at $t=0$, i.e., 2005): revenue was about $\$19.1$ billion in 2005.
+
+\textbf{(c)} $2012$ corresponds to $t=7$:
+
+\[
+R(7)=19.1+1.8(7)=19.1+12.6=31.7\text{ billion dollars.}
+\]
+
+\textbf{(d)} Set $R=35$:
+
+\[
+35=19.1+1.8t.
+\]
+
+\[
+15.9=1.8t.
+\]
+
+\[
+t\approx 8.8.
+\]
+
+Revenue is predicted to reach $\$35$ billion about $8.8$ years after 2005, i.e., around late 2013.
+\end{solutionbox}
+
+  
+
+\begin{friendlyex}{Example 7}
+World grain production was $1241$ million tons in 1975 and $2048$ million tons in 2005, increasing at approximately a constant rate.
+
+\begin{itemize}
+    \item[(a)] Find a linear function $P(t)$ for grain production, in million tons, $t$ years since 1975.
+    \item[(b)] Interpret the slope.
+    \item[(c)] Interpret the vertical intercept.
+\end{itemize}
+\end{friendlyex}
+
+ 
+
+\begin{solutionbox}
+\textbf{(a)} The slope is
+
+\[
+m=\frac{2048-1241}{2005-1975}=\frac{807}{30}=26.9.
+\]
+
+Since $P(0)=1241$,
+
+\[
+P(t)=1241+26.9t.
+\]
+
+\textbf{(b)} The slope means grain production increased by about $26.9$ million tons each year.
+
+\textbf{(c)} The vertical intercept means grain production was $1241$ million tons in 1975.
+\end{solutionbox}
+
+  
+
+\section*{Summary}
+
+\begin{friendlyrule}{Key Ideas}
+\begin{itemize}
+    \item Slope: $m=\dfrac{y_2-y_1}{x_2-x_1}$. A horizontal line has slope $0$; a vertical line has undefined slope.
+    \item Slope-intercept form: $y=mx+b$.
+    \item Average rate of change on $[x_1,x_2]$ is $\dfrac{f(x_2)-f(x_1)}{x_2-x_1}$.
+    \item A linear function has a constant average rate of change, and its graph is a straight line.
+    \item Linear functions are used to model real-world quantities that change at a steady rate.
+\end{itemize}
+\end{friendlyrule}
+
+\end{document}
