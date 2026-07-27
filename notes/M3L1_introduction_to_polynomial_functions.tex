@@ -237,10 +237,10 @@ The left-hand/right-hand end behavior is determined by (1) whether the degree is
 \node[above] at (0,3.1) {\small Leading coefficient Positive};
 \draw[-{Latex}] (-3,0) -- (3,0);
 \draw[-{Latex}] (0,-2.5) -- (0,2.8);
-\draw[dashed, thick, domain=-2.6:-0.15, samples=40, smooth] plot (\x, {0.15*\x*\x*\x+0.7*\x});
-\draw[thick, -{Latex}, domain=-2.7:-2.6, samples=2] plot (\x, {0.15*\x*\x*\x+0.7*\x});
-\draw[dashed, thick, domain=0.15:2.6, samples=40, smooth] plot (\x, {0.15*\x*\x*\x+0.7*\x});
-\draw[thick, -{Latex}, domain=2.6:2.7, samples=2] plot (\x, {0.15*\x*\x*\x+0.7*\x});
+\draw[dashed, thick, domain=-2.6:-0.15, samples=40, smooth] plot (\x, {0.12*\x*\x*\x*\x-0.7*\x*\x});
+\draw[thick, -{Latex}, domain=-2.7:-2.6, samples=2] plot (\x, {0.12*\x*\x*\x*\x-0.7*\x*\x});
+\draw[dashed, thick, domain=0.15:2.6, samples=40, smooth] plot (\x, {0.12*\x*\x*\x*\x-0.7*\x*\x});
+\draw[thick, -{Latex}, domain=2.6:2.7, samples=2] plot (\x, {0.12*\x*\x*\x*\x-0.7*\x*\x});
 \node[anchor=east] at (-2.9,2.3) {\small $f(x)\to\infty$};
 \node[anchor=west] at (2.9,2.3) {\small $f(x)\to\infty$};
 \end{scope}
@@ -248,10 +248,10 @@ The left-hand/right-hand end behavior is determined by (1) whether the degree is
 \node[above] at (0,3.1) {\small Leading coefficient Negative};
 \draw[-{Latex}] (-3,0) -- (3,0);
 \draw[-{Latex}] (0,-2.8) -- (0,2.5);
-\draw[dashed, thick, domain=-2.6:-0.15, samples=40, smooth] plot (\x, {-0.15*\x*\x*\x-0.7*\x});
-\draw[thick, -{Latex}, domain=-2.7:-2.6, samples=2] plot (\x, {-0.15*\x*\x*\x-0.7*\x});
-\draw[dashed, thick, domain=0.15:2.6, samples=40, smooth] plot (\x, {-0.15*\x*\x*\x-0.7*\x});
-\draw[thick, -{Latex}, domain=2.6:2.7, samples=2] plot (\x, {-0.15*\x*\x*\x-0.7*\x});
+\draw[dashed, thick, domain=-2.6:-0.15, samples=40, smooth] plot (\x, {-0.12*\x*\x*\x*\x+0.7*\x*\x});
+\draw[thick, -{Latex}, domain=-2.7:-2.6, samples=2] plot (\x, {-0.12*\x*\x*\x*\x+0.7*\x*\x});
+\draw[dashed, thick, domain=0.15:2.6, samples=40, smooth] plot (\x, {-0.12*\x*\x*\x*\x+0.7*\x*\x});
+\draw[thick, -{Latex}, domain=2.6:2.7, samples=2] plot (\x, {-0.12*\x*\x*\x*\x+0.7*\x*\x});
 \node[anchor=east] at (-2.9,-2.3) {\small $f(x)\to-\infty$};
 \node[anchor=west] at (2.9,-2.3) {\small $f(x)\to-\infty$};
 \end{scope}
