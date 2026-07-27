@@ -32,7 +32,10 @@
 \titleformat{\subsection}{\color{primaryblue}\normalfont\large\bfseries}{\thesubsection}{1em}{}
 
 % --- Friendly Boxes ---
-\newtcolorbox{friendlyex}[1]{
+% --- Auto-numbered Example Box ---
+\newcounter{examplenum}
+
+\newtcolorbox{friendlyexbox}[1]{
     colback=exbg,
     colframe=pinkanno!50,
     arc=5pt,
@@ -40,6 +43,13 @@
     coltitle=black,
     attach title to upper,
     after title={:\quad}
+}
+
+\newenvironment{friendlyex}{%
+    \refstepcounter{examplenum}%
+    \begin{friendlyexbox}{Example \theexamplenum}%
+}{%
+    \end{friendlyexbox}%
 }
 
 \newtcolorbox{friendlyrule}[1]{
@@ -114,7 +124,7 @@ A \funhl{relation} in $x$ and $y$ is a set of ordered pairs $(x,y)$.
 
 Given a relation in $x$ and $y$, we say that $y$ is a \funhl{function} of $x$ if for each value of $x$ in the domain, there is exactly one value of $y$ in the range.
 
-\begin{friendlyex}{Example 1}
+\begin{friendlyex}
 Consider the domain and range
 
 \[
@@ -174,7 +184,7 @@ Therefore, this relation is \textbf{not} a function.
 
   
 
-\begin{friendlyex}{Example 2}
+\begin{friendlyex}
 Consider pairing players on a basketball team with their heights:
 
 \[
@@ -200,7 +210,7 @@ For it to fail to be a function, some player would have to be paired with two di
 A graph represents a function if and only if no vertical line intersects the graph at more than one point.
 \end{friendlyrule}
 
-\begin{friendlyex}{Example 3}
+\begin{friendlyex}
 Does each graph below represent a function?
 
 \begin{center}
@@ -250,7 +260,7 @@ Does each graph below represent a function?
 
   
 
-\begin{friendlyex}{Example 4}
+\begin{friendlyex}
 Consider the table
 
 \[
@@ -280,7 +290,7 @@ For the table to fail to represent a function, some $x$-value would need to appe
 \end{itemize}
 \end{friendlyrule}
 
-\begin{friendlyex}{Example 5}
+\begin{friendlyex}
 Find the $x$- and $y$-intercepts of
 
 \[
@@ -338,7 +348,7 @@ The function's name is $f$. Its rule says: ``to find the number that $x$ is pair
 
 \section*{6. Evaluating Functions}
 
-\begin{friendlyex}{Example 6}
+\begin{friendlyex}
 Evaluate each function at the given input.
 
 \begin{itemize}
@@ -383,7 +393,7 @@ Since we cannot divide by zero, $r(-2)$ is \textbf{undefined}. (This is a previe
 
 \section*{7. More Practice with Function Notation}
 
-\begin{friendlyex}{Example 7}
+\begin{friendlyex}
 Given the table representing a function $f$,
 
 \[
@@ -417,7 +427,7 @@ x=-1\qquad\text{or}\qquad x=6.
 
   
 
-\begin{friendlyex}{Example 8}
+\begin{friendlyex}
 If a rock falls from a height of $100$ meters on a planet $P$, its height $H$ (in meters) after $t$ seconds is approximately
 
 \[

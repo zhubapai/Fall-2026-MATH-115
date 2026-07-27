@@ -32,7 +32,10 @@
 \titleformat{\subsection}{\color{primaryblue}\normalfont\large\bfseries}{\thesubsection}{1em}{}
 
 % --- Friendly Boxes ---
-\newtcolorbox{friendlyex}[1]{
+% --- Auto-numbered Example Box ---
+\newcounter{examplenum}
+
+\newtcolorbox{friendlyexbox}[1]{
     colback=exbg,
     colframe=pinkanno!50,
     arc=5pt,
@@ -40,6 +43,13 @@
     coltitle=black,
     attach title to upper,
     after title={:\quad}
+}
+
+\newenvironment{friendlyex}{%
+    \refstepcounter{examplenum}%
+    \begin{friendlyexbox}{Example \theexamplenum}%
+}{%
+    \end{friendlyexbox}%
 }
 
 \newtcolorbox{friendlyrule}[1]{
@@ -120,7 +130,7 @@ For $a>0$ and an algebraic expression $X$,
 For example, if $|x|=5$, then $x=-5$ or $x=5$.
 \end{friendlyrule}
 
-\begin{friendlyex}{Example 1}
+\begin{friendlyex}
 Solve each absolute value equation.
 
 \begin{itemize}
@@ -186,7 +196,7 @@ For $a>0$ and an algebraic expression $X$:
 \]
 \end{friendlyrule}
 
-\begin{friendlyex}{Example 2}
+\begin{friendlyex}
 Solve, and write the solution in interval notation.
 
 \begin{itemize}
@@ -248,7 +258,7 @@ Interval notation: $\left(-\infty,-\dfrac95\right)\cup\left(\dfrac75,\infty\righ
 
 \section*{4. Applications}
 
-\begin{friendlyex}{Example 3}
+\begin{friendlyex}
 \begin{itemize}
     \item[(a)] Suppose you want your room temperature to stay within $4$ degrees of $70^\circ$F. Determine the temperature range using an absolute value inequality.
     \item[(b)] A machine is designed to produce metal rods that are $10$ cm long, with a maximum allowable error of $0.03$ cm. Write and solve an absolute value inequality to determine the acceptable rod lengths.

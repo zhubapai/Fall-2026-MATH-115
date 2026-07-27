@@ -32,7 +32,10 @@
 \titleformat{\subsection}{\color{primaryblue}\normalfont\large\bfseries}{\thesubsection}{1em}{}
 
 % --- Friendly Boxes ---
-\newtcolorbox{friendlyex}[1]{
+% --- Auto-numbered Example Box ---
+\newcounter{examplenum}
+
+\newtcolorbox{friendlyexbox}[1]{
     colback=exbg,
     colframe=pinkanno!50,
     arc=5pt,
@@ -40,6 +43,13 @@
     coltitle=black,
     attach title to upper,
     after title={:\quad}
+}
+
+\newenvironment{friendlyex}{%
+    \refstepcounter{examplenum}%
+    \begin{friendlyexbox}{Example \theexamplenum}%
+}{%
+    \end{friendlyexbox}%
 }
 
 \newtcolorbox{friendlyrule}[1]{
@@ -134,7 +144,7 @@ A \funhl{system of equations} is two or more equations considered together, for 
 
 The solution to a system is the ordered pair that makes \emph{both} equations true. A system may also have infinitely many solutions or no solution at all.
 
-\begin{friendlyex}{Example 1}
+\begin{friendlyex}
 Determine whether $(8,5)$ is a solution to the system above.
 \end{friendlyex}
 
@@ -162,7 +172,7 @@ Both equations are true, so $(8,5)$ \textbf{is} a solution to the system.
 Solve one equation for one variable, then substitute that expression into the other equation. This produces a single equation in one variable, which can be solved.
 \end{friendlyrule}
 
-\begin{friendlyex}{Example 2}
+\begin{friendlyex}
 Solve using the substitution method.
 \begin{itemize}
     \item[(1)] $\begin{cases} x-y=5,\\ 2x-5y=1. \end{cases}$
@@ -210,7 +220,7 @@ Then $y=3(2)+1=7$. The solution is $(2,7)$.
 Combine the equations, possibly after multiplying one or both by a constant, so that one variable cancels when the equations are added.
 \end{friendlyrule}
 
-\begin{friendlyex}{Example 3}
+\begin{friendlyex}
 Solve using the elimination method.
 \begin{itemize}
     \item[(1)] $\begin{cases} 3x-2y=5,\\ x+y=5. \end{cases}$
@@ -258,7 +268,7 @@ which is \textbf{false}. This system has \textbf{no solution} --- the two lines 
 
 \section*{4. Applications}
 
-\begin{friendlyex}{Example 4}
+\begin{friendlyex}
 A small business shipped $120$ packages one day. Customers are charged $\$3.50$ for each standard delivery package and $\$7.50$ for each express delivery package. Total shipping charges for the day were $\$596$. How many of each kind of package were shipped?
 \end{friendlyex}
 
@@ -296,7 +306,7 @@ There were $76$ standard packages and $44$ express packages.
 
   
 
-\begin{friendlyex}{Example 5}
+\begin{friendlyex}
 A bus company counted $32$ ticket receipts last Friday. A senior ticket costs $\$6.75$ and a regular ticket costs $\$10$. The driver collected $\$297.25$ total. Let $x$ be the number of senior tickets and $y$ the number of regular tickets. Find the ordered pair $(x,y)$.
 \end{friendlyex}
 
@@ -336,7 +346,7 @@ Then $y=32-7=25$. The ordered pair is $(7,25)$.
 To solve a system by graphing, draw both lines and find the point(s) where they cross.
 \end{friendlyrule}
 
-\begin{friendlyex}{Example 6}
+\begin{friendlyex}
 Solve by graphing:
 
 \[

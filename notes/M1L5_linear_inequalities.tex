@@ -32,7 +32,10 @@
 \titleformat{\subsection}{\color{primaryblue}\normalfont\large\bfseries}{\thesubsection}{1em}{}
 
 % --- Friendly Boxes ---
-\newtcolorbox{friendlyex}[1]{
+% --- Auto-numbered Example Box ---
+\newcounter{examplenum}
+
+\newtcolorbox{friendlyexbox}[1]{
     colback=exbg,
     colframe=pinkanno!50,
     arc=5pt,
@@ -40,6 +43,13 @@
     coltitle=black,
     attach title to upper,
     after title={:\quad}
+}
+
+\newenvironment{friendlyex}{%
+    \refstepcounter{examplenum}%
+    \begin{friendlyexbox}{Example \theexamplenum}%
+}{%
+    \end{friendlyexbox}%
 }
 
 \newtcolorbox{friendlyrule}[1]{
@@ -139,7 +149,7 @@ For any real numbers $a$, $b$, $c$: if $a<b$ is true, then $a+c<b+c$ is true.
 When both sides of an inequality are multiplied (or divided) by a \textbf{negative} number, the inequality sign must be \textbf{reversed}.
 \end{friendlyrule}
 
-\begin{friendlyex}{Example 1}
+\begin{friendlyex}
 Solve each inequality. Express the solution in interval notation, and graph the solution.
 
 \begin{itemize}
@@ -257,7 +267,7 @@ Interval notation: $\left(-\infty,-\dfrac{12}{7}\right]$.
 
 \section*{2. Double Inequalities}
 
-\begin{friendlyex}{Example 2}
+\begin{friendlyex}
 Solve each double inequality. Express the solution in interval notation and graph the solution.
 
 \begin{itemize}
@@ -331,7 +341,7 @@ Interval notation: $[-3,1)$.
 
 \section*{3. Verbal Problems and Applications}
 
-\begin{friendlyex}{Example 3}
+\begin{friendlyex}
 \begin{itemize}
     \item[(a)] If $55$ more than $x$ is bigger than $-124$, determine all possible values of $x$.
     \item[(b)] Ethan has $\$90$ to spend on juice boxes. Each juice box costs $\$2.51$. What is the maximum number of juice boxes he can buy?
