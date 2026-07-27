@@ -122,19 +122,19 @@ The graph of a quadratic function, $f(x)=ax^2+bx+c$, is a U-shaped curve called 
 \draw[green!60!black, dashed] (1,-3) -- (1,9);
 \draw[blue, thick, domain=-1.6:3.6, samples=60, smooth] plot (\x, {1.2*(\x-1)*(\x-1) - 2});
 \fill[black] (1,-2) circle (0.08);
-\node[below right] at (1,-2) {vertex $(h,k)$};
+\node[below] at (1,-1.5) {vertex $(h,k)$};
 \node at (1.5,-4) {\small opens up: $a>0$};
 \end{scope}
 % Right: opens down
-\begin{scope}[shift={(9,0)}]
-\draw[step=1, gray!30, very thin] (-4,-4) grid (3,8);
+\begin{scope}[shift={(15,0)}]
+\draw[step=1, gray!30, very thin] (-4,-3) grid (3,9);
 \draw[-{Latex}] (-4,0) -- (3,0) node[right] {$x$};
-\draw[-{Latex}] (0,-4) -- (0,8) node[above] {$y$};
-\draw[green!60!black, dashed] (-1,-4) -- (-1,8);
+\draw[-{Latex}] (0,-3) -- (0,9) node[above] {$y$};
+\draw[green!60!black, dashed] (-1,-3) -- (-1,9);
 \draw[blue, thick, domain=-3.2:1.2, samples=60, smooth] plot (\x, {-1.2*(\x+1)*(\x+1) + 5});
 \fill[black] (-1,5) circle (0.08);
-\node[below right] at (-1,5) {vertex $(h,k)$};
-\node at (-0.5,-5) {\small opens down: $a<0$};
+\node[above] at (-1,4.5) {vertex $(h,k)$};
+\node at (-0.5,-4) {\small opens down: $a<0$};
 \end{scope}
 \end{tikzpicture}
 \end{center}
@@ -239,9 +239,9 @@ Given a quadratic function defined by $f(x)=a(x-h)^2+k$, determine what the grap
 \end{friendlyex}
 
 \begin{center}
-\begin{tikzpicture}[scale=0.35]
+\begin{tikzpicture}[scale=0.5]
 \foreach \i in {0,1,2}{
-\begin{scope}[shift={(9*\i,0)}]
+\begin{scope}[shift={(10*\i,0)}]
 \draw[-{Latex}] (-4,0) -- (4,0);
 \draw[-{Latex}] (0,-4) -- (0,4);
 \end{scope}

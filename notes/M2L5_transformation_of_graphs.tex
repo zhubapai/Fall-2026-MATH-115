@@ -186,8 +186,8 @@ Replacing $x$ by $-x$ in the formula for a function reflects the graph about the
 \draw[step=1, gray!30, very thin] (-6,-2) grid (6,7);
 \draw[-{Latex}] (-6,0) -- (6,0) node[right] {$x$};
 \draw[-{Latex}] (0,-2) -- (0,7) node[above] {$y$};
-\draw[blue, thick, domain=-5.3:-0.05, samples=80, smooth] plot (\x, {(\x+1)*(\x+3)*(\x+4)+3});
-\draw[orange, thick, domain=0.05:5.3, samples=80, smooth] plot (\x, {(-\x+1)*(-\x+3)*(-\x+4)+3});
+\draw[blue, thick, domain=-4.8:-0.5, samples=80, smooth] plot (\x, {(\x+1)*(\x+3)*(\x+4)+3});
+\draw[orange, thick, domain=0.5:4.8, samples=80, smooth] plot (\x, {(-\x+1)*(-\x+3)*(-\x+4)+3});
 \node[blue] at (-3.3,4.8) {\scriptsize $f(x)=(x{+}1)(x{+}3)(x{+}4){+}3$};
 \node[orange] at (3.3,-1.7) {$g(x)=f(-x)$};
 \end{tikzpicture}
