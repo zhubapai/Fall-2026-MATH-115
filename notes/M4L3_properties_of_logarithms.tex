@@ -1,0 +1,283 @@
+\documentclass[12pt]{article}
+
+\usepackage{fontspec}
+\newfontfamily\handwriting{a-casual-handwritten-pen}[Path=../assets/fonts/,Extension=.ttf,Scale=1.5]
+\newfontfamily\comic{Comic Neue}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\usepackage{titlesec}
+\usepackage{multicol}
+\usepackage{environ}
+
+\usetikzlibrary{fit, positioning, arrows.meta, decorations.pathreplacing}
+
+% --- Custom Colors ---
+\definecolor{primaryblue}{RGB}{42, 111, 151}
+\definecolor{exbg}{RGB}{255, 240, 245}
+\definecolor{rulebg}{RGB}{232, 245, 233}
+\definecolor{highlight}{RGB}{255, 243, 176}
+\definecolor{pinkanno}{RGB}{255, 105, 180}
+\definecolor{purpleanno}{RGB}{147, 112, 219}
+\definecolor{solutionbg}{RGB}{245, 245, 255}
+
+% --- Header Styling ---
+\titleformat{\section}{\color{primaryblue}\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\color{primaryblue}\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+% --- Friendly Boxes ---
+% --- Auto-numbered Example Box ---
+\newcounter{examplenum}
+
+\newtcolorbox{friendlyexbox}[1]{
+    colback=exbg,
+    colframe=pinkanno!50,
+    arc=5pt,
+    title=\textbf{#1},
+    coltitle=black,
+    attach title to upper,
+    after title={:\quad}
+}
+
+\newenvironment{friendlyex}{%
+    \refstepcounter{examplenum}%
+    \begin{friendlyexbox}{Example \theexamplenum}%
+}{%
+    \end{friendlyexbox}%
+}
+
+\newtcolorbox{friendlyrule}[1]{
+    colback=rulebg,
+    colframe=primaryblue!30,
+    arc=5pt,
+    fonttitle=\bfseries,
+    title={#1},
+    coltitle=primaryblue
+}
+
+\newcommand{\funhl}[1]{\sethlcolor{highlight}\hl{#1}}
+
+% --- Show/Hide Solutions ---
+\newif\ifshowsolutions
+
+% Uncomment the next line to show solutions.
+\showsolutionstrue
+
+\newcommand{\solutionblank}{\vspace{25ex}}
+
+\NewEnviron{solutionbox}{
+\ifshowsolutions
+\begin{tcolorbox}[
+    colback=solutionbg,
+    colframe=purpleanno!45,
+    arc=5pt,
+    title={Solution},
+    coltitle=primaryblue,
+    fonttitle=\bfseries
+]
+\BODY
+\end{tcolorbox}
+\else
+\solutionblank
+\fi
+}
+
+\begin{document}
+\handwriting
+
+\begin{center}
+    \Large\textbf{\color{primaryblue}Module 4 Lesson 3\\Properties of Logarithms} \\
+    \vspace{0.2cm}
+    \hrule
+\end{center}
+
+\section*{Objectives}
+
+\begin{friendlyrule}{In this lesson, we will learn how to}
+\begin{itemize}
+    \item apply the basic properties of logarithms;
+    \item expand a logarithm as a sum or difference;
+    \item combine logarithms into a single logarithm;
+    \item use the change-of-base formula to evaluate logarithms.
+\end{itemize}
+\end{friendlyrule}
+
+\section*{1. Basic Properties of Logarithms}
+
+\begin{friendlyrule}{Basic Properties}
+From the definition of a logarithmic function, we have:
+\begin{itemize}
+    \item[(a)] $\log_a(1)=0$, \quad because $a^0=1$.
+    \item[(b)] $\log_a(a)=1$, \quad because $a^1=a$.
+    \item[(c)] $\log_a(a^p)=p$, \quad because raising $a$ to the $p$ gives $a^p$ directly.
+    \item[(d)] $a^{\log_a(x)}=x$, \quad because $\log_a(x)$ is exactly the exponent that, applied to $a$, produces $x$.
+\end{itemize}
+\end{friendlyrule}
+
+\begin{friendlyrule}{Additional Properties}
+\begin{itemize}
+    \item[(e)] $\log_a(xy)=\log_a(x)+\log_a(y)$ \hfill (\funhl{Product Rule})
+    \item[(f)] $\log_a\left(\dfrac{x}{y}\right)=\log_a(x)-\log_a(y)$ \hfill (\funhl{Quotient Rule})
+    \item[(g)] $\log_a(x^p)=p\log_a(x)$ \hfill (\funhl{Power Rule})
+\end{itemize}
+\end{friendlyrule}
+
+\begin{friendlyex}{}
+Apply the properties of logarithms to compute:
+\begin{enumerate}[label=(\alph*)]
+    \item $\log_5(5^4)$
+    \item $\log_6(1)$
+    \item $4^{\log_4(12)}$
+    \item $\log_3(3)$
+    \item $\log_4(16\cdot 4)$
+\end{enumerate}
+\end{friendlyex}
+
+\begin{solutionbox}
+\textbf{(a)} $\log_5(5^4)=4$ (property c).
+
+\textbf{(b)} $\log_6(1)=0$ (property a).
+
+\textbf{(c)} $4^{\log_4(12)}=12$ (property d).
+
+\textbf{(d)} $\log_3(3)=1$ (property b).
+
+\textbf{(e)} $\log_4(16\cdot4)=\log_4(64)=\log_4(4^3)=3$.
+\end{solutionbox}
+
+\section*{2. Expanding Logarithms}
+
+\begin{friendlyex}{}
+Expand the following as a sum or difference of logarithms.
+\begin{enumerate}[label=(\alph*)]
+    \item $\log(100P)$
+    \item $\ln\left(\sqrt[5]{6}\right)$
+    \item $\log_c\left(\dfrac{14}{23}\right)$
+    \item $\log_3\left(\dfrac{x^2y^5}{m^3n^4}\right)$
+\end{enumerate}
+\end{friendlyex}
+
+\begin{solutionbox}
+\textbf{(a)} $\log(100P)=\log(100)+\log(P)=2+\log(P)$.
+
+\textbf{(b)} $\ln\left(\sqrt[5]6\right)=\ln\left(6^{1/5}\right)=\dfrac15\ln(6)$.
+
+\textbf{(c)} $\log_c\left(\dfrac{14}{23}\right)=\log_c(14)-\log_c(23)$.
+
+\textbf{(d)} $\log_3\left(\dfrac{x^2y^5}{m^3n^4}\right)=2\log_3(x)+5\log_3(y)-3\log_3(m)-4\log_3(n)$.
+\end{solutionbox}
+
+\begin{friendlyex}{}
+Expand the following as a sum or difference of logarithms.
+\begin{enumerate}[label=(\alph*)]
+    \item $\ln\sqrt{\dfrac{x^3y^4}{z^6}}$
+    \item $\ln\sqrt{\dfrac{x^2+6}{e^3}}$
+\end{enumerate}
+\end{friendlyex}
+
+\begin{solutionbox}
+\textbf{(a)}
+\[
+\ln\sqrt{\frac{x^3y^4}{z^6}}=\frac12\ln\left(\frac{x^3y^4}{z^6}\right)=\frac12\left[3\ln x+4\ln y-6\ln z\right]
+\]
+\[
+=\frac32\ln x+2\ln y-3\ln z.
+\]
+
+\textbf{(b)} Note $x^2+6$ does \textbf{not} split further (it is a sum, not a product), but $\ln(e^3)=3$:
+\[
+\ln\sqrt{\frac{x^2+6}{e^3}}=\frac12\left[\ln(x^2+6)-\ln(e^3)\right]=\frac12\ln(x^2+6)-\frac32.
+\]
+\end{solutionbox}
+
+\section*{3. Combining Logarithms}
+
+\begin{friendlyex}{}
+Express the following as a single logarithm.
+\begin{enumerate}[label=(\alph*)]
+    \item $\log_a 14+\log_a 3$
+    \item $2\ln x+3(\ln y-\ln z)$
+    \item $\dfrac23\left[\ln(z^2-9)-\ln(z+3)\right]+\ln(z-3)$
+    \item $\dfrac13\ln(x^2+1)-\dfrac13\ln(x-3)$
+\end{enumerate}
+\end{friendlyex}
+
+\begin{solutionbox}
+\textbf{(a)} $\log_a 14+\log_a 3=\log_a(14\cdot3)=\log_a(42)$.
+
+\textbf{(b)} $2\ln x+3(\ln y-\ln z)=\ln(x^2)+\ln\left(\dfrac{y^3}{z^3}\right)=\ln\left(\dfrac{x^2y^3}{z^3}\right)$.
+
+\textbf{(c)} Since $z^2-9=(z-3)(z+3)$, we have $\dfrac{z^2-9}{z+3}=z-3$, so
+\[
+\frac23\left[\ln(z^2-9)-\ln(z+3)\right]+\ln(z-3)=\frac23\ln(z-3)+\ln(z-3)
+\]
+\[
+=\frac53\ln(z-3)=\ln\left[(z-3)^{5/3}\right].
+\]
+
+\textbf{(d)}
+\[
+\frac13\ln(x^2+1)-\frac13\ln(x-3)=\frac13\ln\left(\frac{x^2+1}{x-3}\right)=\ln\left[\left(\frac{x^2+1}{x-3}\right)^{1/3}\right].
+\]
+\end{solutionbox}
+
+\section*{4. Estimating Logarithms}
+
+\begin{friendlyex}{}
+Let $\log_a 2\approx.43$, $\log_a 3\approx.68$, and $\log_a 5\approx1.55$. Estimate the following.
+\begin{enumerate}[label=(\alph*)]
+    \item $\log_a 6$
+    \item $\log_a\left(\dfrac23\right)$
+    \item $\log_a 20$
+\end{enumerate}
+\end{friendlyex}
+
+\begin{solutionbox}
+\textbf{(a)} $\log_a 6=\log_a(2\cdot3)=\log_a2+\log_a3\approx.43+.68=\boxed{1.11}$.
+
+\textbf{(b)} $\log_a\left(\dfrac23\right)=\log_a2-\log_a3\approx.43-.68=\boxed{-.25}$.
+
+\textbf{(c)} $\log_a20=\log_a(4\cdot5)=\log_a(2^2\cdot5)=2\log_a2+\log_a5\approx2(.43)+1.55=\boxed{2.41}$.
+\end{solutionbox}
+
+\section*{5. Change of Base Formula}
+
+\begin{friendlyrule}{Change of Base Formula}
+\[
+\log_a(x)=\frac{\log_b(x)}{\log_b(a)}
+\]
+\end{friendlyrule}
+
+\textbf{Examples:}
+\[
+\log_5(x)=\frac{\log_{10}(x)}{\log_{10}(5)} \qquad\qquad \log_5(x)=\frac{\ln(x)}{\ln(5)}
+\]
+
+\begin{friendlyex}{}
+Compute $\log_5(33)$ by changing to base $10$.
+\end{friendlyex}
+
+\begin{solutionbox}
+\[
+\log_5(33)=\frac{\log_{10}(33)}{\log_{10}(5)}\approx\frac{1.5185}{0.6990}\approx \boxed{2.17}
+\]
+\end{solutionbox}
+
+\section*{Summary}
+
+\begin{friendlyrule}{Key Ideas}
+\begin{itemize}
+    \item Basic properties: $\log_a(1)=0$, $\log_a(a)=1$, $\log_a(a^p)=p$, and $a^{\log_a(x)}=x$.
+    \item Product Rule: $\log_a(xy)=\log_a(x)+\log_a(y)$. \quad Quotient Rule: $\log_a(x/y)=\log_a(x)-\log_a(y)$. \quad Power Rule: $\log_a(x^p)=p\log_a(x)$.
+    \item These rules only split \textbf{products}, \textbf{quotients}, and \textbf{powers} inside a logarithm --- a \textbf{sum} or \textbf{difference} inside a logarithm, like $\log(x^2+6)$, cannot be split further.
+    \item Change of Base Formula: $\log_a(x)=\dfrac{\log_b(x)}{\log_b(a)}$, useful for evaluating a logarithm in a base your calculator doesn't have (typically using base $10$ or base $e$).
+\end{itemize}
+\end{friendlyrule}
+
+\end{document}

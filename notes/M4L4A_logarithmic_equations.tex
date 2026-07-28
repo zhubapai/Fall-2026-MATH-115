@@ -1,0 +1,265 @@
+\documentclass[12pt]{article}
+
+\usepackage{fontspec}
+\newfontfamily\handwriting{a-casual-handwritten-pen}[Path=../assets/fonts/,Extension=.ttf,Scale=1.5]
+\newfontfamily\comic{Comic Neue}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\usepackage{titlesec}
+\usepackage{multicol}
+\usepackage{environ}
+
+\usetikzlibrary{fit, positioning, arrows.meta, decorations.pathreplacing}
+
+% --- Custom Colors ---
+\definecolor{primaryblue}{RGB}{42, 111, 151}
+\definecolor{exbg}{RGB}{255, 240, 245}
+\definecolor{rulebg}{RGB}{232, 245, 233}
+\definecolor{highlight}{RGB}{255, 243, 176}
+\definecolor{pinkanno}{RGB}{255, 105, 180}
+\definecolor{purpleanno}{RGB}{147, 112, 219}
+\definecolor{solutionbg}{RGB}{245, 245, 255}
+
+% --- Header Styling ---
+\titleformat{\section}{\color{primaryblue}\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\color{primaryblue}\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+% --- Friendly Boxes ---
+% --- Auto-numbered Example Box ---
+\newcounter{examplenum}
+
+\newtcolorbox{friendlyexbox}[1]{
+    colback=exbg,
+    colframe=pinkanno!50,
+    arc=5pt,
+    title=\textbf{#1},
+    coltitle=black,
+    attach title to upper,
+    after title={:\quad}
+}
+
+\newenvironment{friendlyex}{%
+    \refstepcounter{examplenum}%
+    \begin{friendlyexbox}{Example \theexamplenum}%
+}{%
+    \end{friendlyexbox}%
+}
+
+\newtcolorbox{friendlyrule}[1]{
+    colback=rulebg,
+    colframe=primaryblue!30,
+    arc=5pt,
+    fonttitle=\bfseries,
+    title={#1},
+    coltitle=primaryblue
+}
+
+\newcommand{\funhl}[1]{\sethlcolor{highlight}\hl{#1}}
+
+% --- Show/Hide Solutions ---
+\newif\ifshowsolutions
+
+% Uncomment the next line to show solutions.
+\showsolutionstrue
+
+\newcommand{\solutionblank}{\vspace{25ex}}
+
+\NewEnviron{solutionbox}{
+\ifshowsolutions
+\begin{tcolorbox}[
+    colback=solutionbg,
+    colframe=purpleanno!45,
+    arc=5pt,
+    title={Solution},
+    coltitle=primaryblue,
+    fonttitle=\bfseries
+]
+\BODY
+\end{tcolorbox}
+\else
+\solutionblank
+\fi
+}
+
+\begin{document}
+\handwriting
+
+\begin{center}
+    \Large\textbf{\color{primaryblue}Module 4 Lesson 4A\\Logarithmic Equations and Applications} \\
+    \vspace{0.2cm}
+    \hrule
+\end{center}
+
+\section*{Objectives}
+
+\begin{friendlyrule}{In this lesson, we will learn how to}
+\begin{itemize}
+    \item solve logarithmic equations using the equivalence property;
+    \item combine logarithms first when an equation has multiple log terms;
+    \item check solutions against the domain of the original logarithms;
+    \item apply logarithmic equations to the pH scale.
+\end{itemize}
+\end{friendlyrule}
+
+\section*{1. Equivalence Property}
+
+\begin{friendlyrule}{Equivalence Property of Logarithmic Equations}
+Let $a,x,y$ be positive real numbers with $a\neq1$. If
+\[
+\log_a x=\log_a y \qquad \text{then} \qquad x=y.
+\]
+\end{friendlyrule}
+
+\begin{friendlyrule}{A Reminder}
+Since $\log_a(x)$ is only defined for $x>0$, always check that a candidate solution keeps every logarithm's argument \textbf{positive} in the original equation. A solution that fails this check is \textbf{extraneous} and must be discarded.
+\end{friendlyrule}
+
+\begin{friendlyex}{}
+Solve.
+\begin{enumerate}[label=(\alph*)]
+    \item $\log(x^2)=\log(16)$
+    \item $\log_5(8-7x)=3$
+\end{enumerate}
+\end{friendlyex}
+
+\begin{solutionbox}
+\textbf{(a)} By the equivalence property, $x^2=16 \implies x=\pm4$. Both keep $x^2=16>0$, so both are valid.
+\[
+\boxed{x=4,\ x=-4}
+\]
+
+\textbf{(b)} Rewrite in exponential form: $8-7x=5^3=125$.
+\[
+-7x=117 \implies x=-\frac{117}{7}
+\]
+Check: $8-7x=125>0$. \checkmark
+\[
+\boxed{x=-\frac{117}{7}}
+\]
+\end{solutionbox}
+
+\section*{2. Combining Logarithms Before Solving}
+
+When an equation has multiple logarithmic terms, first combine them into a single logarithm using the product/quotient/power rules, then apply the equivalence property.
+
+\begin{friendlyex}{}
+Solve $\ln x-\ln(x-4)=\ln 3$.
+\end{friendlyex}
+
+\begin{solutionbox}
+\[
+\ln\left(\frac{x}{x-4}\right)=\ln3 \implies \frac{x}{x-4}=3 \implies x=3(x-4)=3x-12.
+\]
+\[
+-2x=-12 \implies x=6.
+\]
+
+Check: $x=6>0$ and $x-4=2>0$. \checkmark
+\[
+\boxed{x=6}
+\]
+\end{solutionbox}
+
+\begin{friendlyex}{}
+Solve $\log_2(x-4)=\log_2(2)-\log_2(x-3)$.
+\end{friendlyex}
+
+\begin{solutionbox}
+Combine the right side: $\log_2(2)-\log_2(x-3)=\log_2\left(\dfrac{2}{x-3}\right)$.
+\[
+\log_2(x-4)=\log_2\left(\frac{2}{x-3}\right) \implies x-4=\frac{2}{x-3} \implies (x-4)(x-3)=2
+\]
+\[
+x^2-7x+12=2 \implies x^2-7x+10=0 \implies (x-5)(x-2)=0.
+\]
+\[
+x=5 \text{ or } x=2.
+\]
+
+Check $x=5$: $x-4=1>0$ and $x-3=2>0$. \checkmark
+
+Check $x=2$: $x-4=-2<0$. \textbf{Fails} --- extraneous.
+\[
+\boxed{x=5}
+\]
+\end{solutionbox}
+
+\begin{friendlyex}{}
+Solve $2\ln x-\ln 5=\ln(x+10)$.
+\end{friendlyex}
+
+\begin{solutionbox}
+\[
+\ln(x^2)-\ln5=\ln(x+10) \implies \ln\left(\frac{x^2}{5}\right)=\ln(x+10) \implies \frac{x^2}{5}=x+10
+\]
+\[
+x^2=5x+50 \implies x^2-5x-50=0 \implies (x-10)(x+5)=0.
+\]
+\[
+x=10 \text{ or } x=-5.
+\]
+
+Check $x=10$: $x>0$ and $x+10=20>0$. \checkmark
+
+Check $x=-5$: $\ln x$ requires $x>0$, but $x=-5<0$. \textbf{Fails} --- extraneous.
+\[
+\boxed{x=10}
+\]
+\end{solutionbox}
+
+\begin{friendlyex}{}
+Solve $\log_3(\log_2 x)=0$.
+\end{friendlyex}
+
+\begin{solutionbox}
+Rewrite in exponential form (base $3$): $\log_2 x=3^0=1$.
+
+Rewrite again (base $2$): $x=2^1=2$.
+\[
+\boxed{x=2}
+\]
+\end{solutionbox}
+
+\section*{3. Application: The pH Scale}
+
+\begin{friendlyrule}{pH Formula}
+The acidity of a solution is measured using the pH scale, defined by
+\[
+pH=-\log[H^+],
+\]
+where $[H^+]$ is the concentration of the hydrogen ion in moles per liter.
+\end{friendlyrule}
+
+\begin{friendlyex}{}
+A certain solution has pH of $3.5$. What is the hydrogen ion concentration $[H^+]$ in the solution?
+\end{friendlyex}
+
+\begin{solutionbox}
+\[
+3.5=-\log[H^+] \implies \log[H^+]=-3.5 \implies [H^+]=10^{-3.5}
+\]
+\[
+\boxed{[H^+]\approx 3.16\times10^{-4} \text{ moles/liter}}
+\]
+\end{solutionbox}
+
+\section*{Summary}
+
+\begin{friendlyrule}{Key Ideas}
+\begin{itemize}
+    \item Equivalence Property: if $\log_a x=\log_a y$ (same base), then $x=y$.
+    \item If an equation has a single logarithm equal to a number, rewrite it in exponential form: $\log_a(x)=p \implies x=a^p$.
+    \item If an equation has multiple logarithmic terms, first combine them into a single logarithm with the product/quotient/power rules, \textbf{then} apply the equivalence property.
+    \item \textbf{Always check every solution} against the domain of each original logarithm ($\text{argument}>0$) --- solving often introduces extraneous roots that must be discarded.
+    \item Application: $pH=-\log[H^+]$, so $[H^+]=10^{-pH}$.
+\end{itemize}
+\end{friendlyrule}
+
+\end{document}

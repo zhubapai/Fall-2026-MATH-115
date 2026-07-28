@@ -1,0 +1,246 @@
+\documentclass[12pt]{article}
+
+\usepackage{fontspec}
+\newfontfamily\handwriting{a-casual-handwritten-pen}[Path=../assets/fonts/,Extension=.ttf,Scale=1.5]
+\newfontfamily\comic{Comic Neue}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\usepackage{titlesec}
+\usepackage{multicol}
+\usepackage{environ}
+
+\usetikzlibrary{fit, positioning, arrows.meta, decorations.pathreplacing}
+
+% --- Custom Colors ---
+\definecolor{primaryblue}{RGB}{42, 111, 151}
+\definecolor{exbg}{RGB}{255, 240, 245}
+\definecolor{rulebg}{RGB}{232, 245, 233}
+\definecolor{highlight}{RGB}{255, 243, 176}
+\definecolor{pinkanno}{RGB}{255, 105, 180}
+\definecolor{purpleanno}{RGB}{147, 112, 219}
+\definecolor{solutionbg}{RGB}{245, 245, 255}
+
+% --- Header Styling ---
+\titleformat{\section}{\color{primaryblue}\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\color{primaryblue}\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+% --- Friendly Boxes ---
+% --- Auto-numbered Example Box ---
+\newcounter{examplenum}
+
+\newtcolorbox{friendlyexbox}[1]{
+    colback=exbg,
+    colframe=pinkanno!50,
+    arc=5pt,
+    title=\textbf{#1},
+    coltitle=black,
+    attach title to upper,
+    after title={:\quad}
+}
+
+\newenvironment{friendlyex}{%
+    \refstepcounter{examplenum}%
+    \begin{friendlyexbox}{Example \theexamplenum}%
+}{%
+    \end{friendlyexbox}%
+}
+
+\newtcolorbox{friendlyrule}[1]{
+    colback=rulebg,
+    colframe=primaryblue!30,
+    arc=5pt,
+    fonttitle=\bfseries,
+    title={#1},
+    coltitle=primaryblue
+}
+
+\newcommand{\funhl}[1]{\sethlcolor{highlight}\hl{#1}}
+
+% --- Show/Hide Solutions ---
+\newif\ifshowsolutions
+
+% Uncomment the next line to show solutions.
+\showsolutionstrue
+
+\newcommand{\solutionblank}{\vspace{25ex}}
+
+\NewEnviron{solutionbox}{
+\ifshowsolutions
+\begin{tcolorbox}[
+    colback=solutionbg,
+    colframe=purpleanno!45,
+    arc=5pt,
+    title={Solution},
+    coltitle=primaryblue,
+    fonttitle=\bfseries
+]
+\BODY
+\end{tcolorbox}
+\else
+\solutionblank
+\fi
+}
+
+\begin{document}
+\handwriting
+
+\begin{center}
+    \Large\textbf{\color{primaryblue}Module 4 Lesson 4\\Exponential Equations and Applications} \\
+    \vspace{0.2cm}
+    \hrule
+\end{center}
+
+\section*{Objectives}
+
+\begin{friendlyrule}{In this lesson, we will learn how to}
+\begin{itemize}
+    \item solve exponential equations by matching bases;
+    \item solve exponential equations using logarithms;
+    \item apply exponential equations to compound interest problems.
+\end{itemize}
+\end{friendlyrule}
+
+\section*{1. Equivalence Property}
+
+\begin{friendlyrule}{Equivalence Property of Exponential Equations}
+Let $a,x,y$ be real numbers with $a>0$ and $a\neq1$. Then
+\[
+a^x=a^y \qquad \text{implies that} \qquad x=y.
+\]
+\end{friendlyrule}
+
+\textbf{Example:} \quad $5^x=25 \implies 5^x=5^2 \implies x=2$.
+
+\begin{friendlyex}{}
+Solve the following exponential equations.
+\begin{enumerate}[label=(\alph*)]
+    \item $3^x=27$
+    \item $4^{2x-3}=32$
+    \item $8^{x+2}=16^{x+1}$
+\end{enumerate}
+\end{friendlyex}
+
+\begin{solutionbox}
+\textbf{(a)} $3^x=27=3^3 \implies \boxed{x=3}$.
+
+\textbf{(b)} Write both sides with base $2$: $4=2^2$, $32=2^5$.
+\[
+2^{2(2x-3)}=2^5 \implies 4x-6=5 \implies 4x=11 \implies \boxed{x=\frac{11}{4}}
+\]
+
+\textbf{(c)} Write both sides with base $2$: $8=2^3$, $16=2^4$.
+\[
+2^{3(x+2)}=2^{4(x+1)} \implies 3x+6=4x+4 \implies \boxed{x=2}
+\]
+\end{solutionbox}
+
+\section*{2. Solving Exponential Equations Using Logarithms}
+
+Some problems cannot be solved by setting the powers equal to each other (since the two sides cannot be written with matching bases). These are solved by applying a logarithm to both sides of the equation.
+
+\begin{friendlyex}{}
+Solve the following equations.
+\begin{enumerate}[label=(\alph*)]
+    \item $e^x=1200$
+    \item $5^{2x-3}=17$
+    \item $319=11^x+5$
+\end{enumerate}
+\end{friendlyex}
+
+\begin{solutionbox}
+\textbf{(a)} Apply $\ln$ to both sides:
+\[
+\ln(e^x)=\ln(1200) \implies x=\ln(1200)\approx \boxed{7.09}
+\]
+
+\textbf{(b)} Apply $\ln$ to both sides:
+\[
+(2x-3)\ln5=\ln17 \implies 2x-3=\frac{\ln17}{\ln5}\approx1.7604
+\]
+\[
+2x\approx4.7604 \implies \boxed{x\approx2.38}
+\]
+
+\textbf{(c)} Isolate the exponential first:
+\[
+319-5=11^x \implies 314=11^x \implies x=\frac{\ln314}{\ln11}\approx \boxed{2.40}
+\]
+\end{solutionbox}
+
+\begin{friendlyex}{}
+Solve the following equations.
+\begin{enumerate}[label=(\alph*)]
+    \item $60=80e^{-0.4x}$
+    \item $3^{x-2}=5^{x+1}$
+\end{enumerate}
+\end{friendlyex}
+
+\begin{solutionbox}
+\textbf{(a)} Isolate the exponential, then apply $\ln$:
+\[
+\frac{60}{80}=e^{-0.4x} \implies 0.75=e^{-0.4x} \implies \ln(0.75)=-0.4x
+\]
+\[
+x=\frac{\ln(0.75)}{-0.4}\approx \boxed{0.72}
+\]
+
+\textbf{(b)} Apply $\ln$ to both sides:
+\[
+(x-2)\ln3=(x+1)\ln5
+\]
+\[
+x\ln3-2\ln3=x\ln5+\ln5
+\]
+\[
+x(\ln3-\ln5)=\ln5+2\ln3
+\]
+\[
+x=\frac{\ln5+2\ln3}{\ln3-\ln5}\approx\frac{1.6094+2.1972}{1.0986-1.6094}=\frac{3.8066}{-0.5108}\approx \boxed{-7.45}
+\]
+\end{solutionbox}
+
+\section*{3. Application: Compound Interest}
+
+\begin{friendlyex}{}
+If \$5000 is put into an interest-bearing account at an interest rate of $2.2\%$ compounded monthly, find the time required for the account to \textbf{earn} \$1000. Round to the nearest month.
+\end{friendlyex}
+
+\begin{solutionbox}
+Earning \$1000 means the account grows from \$5000 to \$6000, so $A=6000$, $P=5000$, $r=0.022$, $n=12$.
+\[
+6000=5000\left(1+\frac{0.022}{12}\right)^{12t}
+\]
+\[
+1.2=\left(1.0018333\right)^{12t}
+\]
+
+Apply $\ln$ to both sides:
+\[
+\ln(1.2)=12t\,\ln(1.0018333)
+\]
+\[
+12t=\frac{\ln(1.2)}{\ln(1.0018333)}\approx\frac{0.18232}{0.0018317}\approx99.55
+\]
+
+Rounding to the nearest month, $12t\approx \boxed{100 \text{ months}}$ (about $8$ years and $4$ months).
+\end{solutionbox}
+
+\section*{Summary}
+
+\begin{friendlyrule}{Key Ideas}
+\begin{itemize}
+    \item Equivalence Property: if $a^x=a^y$ (same base), then $x=y$. Rewrite both sides with a common base whenever possible.
+    \item When the two sides cannot share a common base, apply $\ln$ (or $\log$) to \textbf{both sides} of the equation, then use the power rule $\ln(b^x)=x\ln(b)$ to bring the variable down out of the exponent.
+    \item Always \textbf{isolate} the exponential expression first before applying a logarithm (e.g.\ subtract or divide off any extra terms/factors).
+    \item When variable exponents appear on both sides with different bases (like $3^{x-2}=5^{x+1}$), take $\ln$ of both sides, expand with the product rule, then collect all $x$-terms on one side to solve.
+\end{itemize}
+\end{friendlyrule}
+
+\end{document}
