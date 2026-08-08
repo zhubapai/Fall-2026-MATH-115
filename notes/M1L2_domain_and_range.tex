@@ -69,7 +69,7 @@
 % Uncomment the next line to show solutions.
 \showsolutionstrue
 
-\newcommand{\solutionblank}{\vspace{25ex}}
+\newsavebox{\solutionmeasurebox}
 
 \NewEnviron{solutionbox}{
 \ifshowsolutions
@@ -84,7 +84,8 @@
 \BODY
 \end{tcolorbox}
 \else
-\solutionblank
+\sbox{\solutionmeasurebox}{\begin{minipage}{\dimexpr\linewidth-10pt\relax}\BODY\end{minipage}}
+\vspace{\dimexpr\ht\solutionmeasurebox+\dp\solutionmeasurebox+3em\relax}
 \fi
 }
 
